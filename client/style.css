@@ -88,3 +88,39 @@ p{
     background-color: #009FE3;
     color: white;
 }
+
+.trolleybusNumber{
+    background-color: #FF1609;
+    color: white;
+}
+
+.subwayNumber{
+    border-radius: 4vmin;
+    width: 8vmin;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    font-weight: bold;
+    height: 8vmin;
+}
+
+.m1LineNumber{
+    background-color: #FFD800;
+    color: black;
+}
+
+.m2LineNumber{
+    background-color: #E41F18;
+    color: white;
+}
+
+.m3LineNumber{
+    background-color: #005CA5;
+    color: white;
+}
+
+.m4LineNumber{
+    background-color: #4CA22F;
+    color: white;
+}

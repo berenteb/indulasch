@@ -16,8 +16,8 @@ async function createFields() {
             let html = `<div class="field">
             <div class="line fieldElement">
                 <img class="lineImg" src="./svg/${row.type}.svg"></img>
-                <div class="lineNumber ${row.type.toLowerCase()}Number">
-                    <p>${row.line}</p>
+                <div class="lineNumber ${row.type.toLowerCase()}Number ${row.type==="SUBWAY"?row.line.toLowerCase()+'LineNumber':''}">
+                    <p>${row.type === "SUBWAY" ? row.line.charAt(1) : row.line}</p>
                 </div>
             </div>
             <div class="destination fieldElement">

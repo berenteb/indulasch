@@ -6,18 +6,13 @@ const express = require("express");
 const config = require("./config.json");
 const app = express();
 const api_url = new URL("https://futar.bkk.hu/api/query/v1/ws/otp/api/where/arrivals-and-departures-for-location.json");
-// api_url.searchParams.append("key", "apaiary-test");
-// api_url.searchParams.append("version", "3");
-// api_url.searchParams.append("appVersion", "apiary-1.0");
-// api_url.searchParams.append("includeReferences", "stops");
-// api_url.searchParams.append("query", "Budafoki út / Szerémi sor");
 api_url.searchParams.append("lon", config.lon);
 api_url.searchParams.append("lat", config.lat);
 api_url.searchParams.append("clientLon", config.lon);
 api_url.searchParams.append("clientLat", config.lat);
 api_url.searchParams.append("minutesBefore", "0");
 api_url.searchParams.append("limit", "30");
-api_url.searchParams.append("groupLimit", "10");
+api_url.searchParams.append("groupLimit", "2");
 api_url.searchParams.append("onlyDepartures", "true");
 api_url.searchParams.append("radius", "150");
 
@@ -31,6 +26,7 @@ function getData() {
             res.on('end', () => {
                 var parsed = JSON.parse(str);
                 var parsedData = parseData(parsed.data)
+                fs.writeFileSync("./result.json",str);
                 parsedData.departures = sortData(parsedData.departures);
                 if (parsedData !== false) {
                     resolve(parsedData);
