@@ -26,7 +26,7 @@ function getData() {
             res.on('end', () => {
                 var parsed = JSON.parse(str);
                 var parsedData = parseData(parsed.data)
-                fs.writeFileSync("./result.json",str);
+                // fs.writeFileSync("./result.json",str);
                 parsedData.departures = sortData(parsedData.departures);
                 if (parsedData !== false) {
                     resolve(parsedData);
