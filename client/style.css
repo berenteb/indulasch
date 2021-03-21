@@ -22,6 +22,90 @@ p{
     position: absolute;
 }
 
+.animation1{
+    transition: .3s;
+}
+
+.animation1:hover{
+    transform: scale(1.1);
+}
+
+/* Error */
+
+.errorContainer{
+    width: 100vw;
+    height: 100vh;
+    position: fixed;
+    display: none;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background-color: rgba(70%, 70%, 70%, .5);
+}
+
+.errorField{
+    width: 70vw;
+    border-radius: 5vmin;
+    background-color: #E41F18;
+    color: white;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    opacity: 1;
+}
+
+/* Settings */
+.settingsPanelContainer{
+    position: fixed;
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    display: none;
+}
+.settingsPanel{
+    height: 90vh;
+    width: 90vw;
+    border-radius: 10vmin;
+    background-color: white;
+    border: 1px solid grey;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    align-items: center;
+}
+h2{
+    font-size: 3vmin;
+}
+.formGroup{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+.roundField{
+    max-width: 90%;
+    width: 50vmax;
+    border-radius: 300px;
+    min-height: 5vmin;
+    padding: 20px;
+    font-size: 4vmin;
+    text-align: center;
+    margin: 10px;
+}
+input{
+    border: 1px solid gray;
+}
+button{
+    background-color: #009FE3;
+    border: none;
+    color: white;
+    cursor: pointer;
+}
+/* Title */
+
 .titleBar{
     height: 10vmin;
     display: flex;
@@ -30,6 +114,14 @@ p{
     justify-content: center;
 }
 
+.icon-tabler-settings{
+    position: absolute;
+    right: 20px;
+    height: 5vmin;
+    width: 5vmin;
+    cursor: pointer;
+}
+/* Main */
 .content{
     display: flex;
     flex-direction: column;
@@ -39,7 +131,7 @@ p{
 
 .field{
     width: 80%;
-    height: 10vmin;
+    min-height: 10vmin;
     border-radius: 2vmin;
     background-color: white;
     padding: 1vmin 0;
@@ -56,7 +148,7 @@ p{
 }
 
 .line{
-    height: 100%;
+    height: 10vmin;
     display: flex;
     flex-direction: row;
     justify-content: space-between;
@@ -64,7 +156,7 @@ p{
 }
 
 .lineImg{
-    height: 80%;
+    height: 8vmin;
     margin-right: 1vmin;
 }
 
@@ -76,7 +168,15 @@ p{
     justify-content: center;
     align-items: center;
     font-weight: bold;
-    height: 80%;
+    height: 8vmin;
+}
+
+.destination{
+    max-width: 40%;
+}
+
+.destination > p{
+    max-width: 100%;
 }
 
 .tramNumber{
@@ -94,7 +194,7 @@ p{
     color: white;
 }
 
-.subwayNumber{
+.subwayNumber,.railNumber{
     border-radius: 4vmin;
     width: 8vmin;
     display: flex;
@@ -122,5 +222,25 @@ p{
 
 .m4LineNumber{
     background-color: #4CA22F;
+    color: white;
+}
+
+.h5LineNumber{
+    background-color: #821066;
+    color: white;
+}
+
+.h6LineNumber{
+    background-color: #824B00;
+    color: white;
+}
+
+.h7LineNumber{
+    background-color: #EE7203;
+    color: white;
+}
+
+.h8LineNumber, .h9LineNumber{
+    background-color: #EC766F;
     color: white;
 }
