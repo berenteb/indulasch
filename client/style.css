@@ -190,6 +190,14 @@ button{
     height: 8vmin;
 }
 
+.onTime{
+    color: rgb(0, 170, 0);
+}
+
+.delayed{
+    color: red;
+}
+
 @media (prefers-color-scheme: dark) {
     .field{
         background-color: rgb(40, 40, 40);

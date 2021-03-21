@@ -28,21 +28,29 @@ async function createFields() {
                 }else departureTime += " perc";
                 let html = `<div class="field">
                 <div class="line fieldElement">
-                    <img class="lineImg" src="./svg/${row.style.vehicleIcon.name}.svg"></img>
+                    <img class="lineImg" src="./svg/${
+                      row.style.vehicleIcon.name
+                    }.svg"></img>
                     <div class="${
                       row.style.icon.type.toLowerCase() || "box"
                     }" style="background-color: #${row.style.color}; color: #${
-                        row.style.icon.textColor
-                    }">
+                  row.style.icon.textColor
+                }">
                         <p>${row.style.icon.text || "?"}</p>
                     </div>
-                    ${row.alert ? "<img class='lineImg' src='./svg/alert.svg'></img>":""}
+                    ${
+                      row.alert
+                        ? "<img class='lineImg' src='./svg/alert.svg'></img>"
+                        : ""
+                    }
                 </div>
                 <div class="destination fieldElement">
                     <p>${row.headsign}</p>
                 </div>
                 <div class="time fieldElement">
-                    <p>${departureTime}</p>
+                    <p class="${
+                      row.isDelayed ? "delayed" : "onTime"
+                    }">${departureTime}</p>
                 </div>
             </div>`;
             content.insertAdjacentHTML("beforeend", html);

@@ -83,6 +83,7 @@ function parseData(data) {
                     predicted: st.predictedDepartureTime || st.departureTime,
                     alert: st.alertIds !== undefined
                 };
+                record.isDelayed = record.predicted - record.scheduled > 180;
                 parsedData.departures.push(record);
             })
 
