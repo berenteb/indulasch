@@ -160,17 +160,6 @@ button{
     margin-right: 1vmin;
 }
 
-.lineNumber{
-    border-radius: 1vmin;
-    width: 12vmin;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    font-weight: bold;
-    height: 8vmin;
-}
-
 .destination{
     max-width: 40%;
 }
@@ -179,22 +168,7 @@ button{
     max-width: 100%;
 }
 
-.tramNumber{
-    background-color: #FFD800;
-    color: black;
-}
-
-.busNumber{
-    background-color: #009FE3;
-    color: white;
-}
-
-.trolleybusNumber{
-    background-color: #FF1609;
-    color: white;
-}
-
-.subwayNumber,.railNumber{
+.circle{
     border-radius: 4vmin;
     width: 8vmin;
     display: flex;
@@ -205,42 +179,26 @@ button{
     height: 8vmin;
 }
 
-.m1LineNumber{
-    background-color: #FFD800;
-    color: black;
+.box{
+    border-radius: 1vmin;
+    width: 12vmin;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    font-weight: bold;
+    height: 8vmin;
 }
 
-.m2LineNumber{
-    background-color: #E41F18;
-    color: white;
-}
-
-.m3LineNumber{
-    background-color: #005CA5;
-    color: white;
-}
-
-.m4LineNumber{
-    background-color: #4CA22F;
-    color: white;
-}
-
-.h5LineNumber{
-    background-color: #821066;
-    color: white;
-}
-
-.h6LineNumber{
-    background-color: #824B00;
-    color: white;
-}
-
-.h7LineNumber{
-    background-color: #EE7203;
-    color: white;
-}
-
-.h8LineNumber, .h9LineNumber{
-    background-color: #EC766F;
-    color: white;
-}
+@media (prefers-color-scheme: dark) {
+    .field{
+        background-color: rgb(40, 40, 40);
+    }
+    .app{
+        background-color: black;
+        color: white;
+    }
+    .icon-tabler-settings{
+        stroke: white;
+    }
+  }

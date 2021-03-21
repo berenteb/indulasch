@@ -32,9 +32,10 @@ function getData(lat, lon) {
                 var parsed = JSON.parse(str);
                 var parsedData = parseData(parsed.data)
                 if (parsedData !== false) {
-                    resolve(parsedData);parsedData.areaName = getAreaName(parsed);
-                    // fs.writeFileSync("./result.json",str);
-                    parsedData.departures = sortData(parsedData.departures);
+                  parsedData.areaName = getAreaName(parsed);
+                  //   fs.writeFileSync("./result.json", str);
+                  parsedData.departures = sortData(parsedData.departures);
+                  resolve(parsedData);
                 } else reject("Hiba");
             })
             res.on('error', (err) => {
@@ -76,11 +77,12 @@ function parseData(data) {
             element.stopTimes.forEach(st => {
                 let record = {
                     type: data.references.routes[element.routeId].type,
-                    line: data.references.routes[element.routeId].shortName,
+                    style: data.references.routes[element.routeId].style,
                     headsign: st.stopHeadsign,
                     scheduled: st.departureTime,
                     predicted: st.predictedDepartureTime || st.departureTime,
-                }
+                    alert: st.alertIds !== undefined
+                };
                 parsedData.departures.push(record);
             })
 
