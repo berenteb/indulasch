@@ -3,13 +3,14 @@ A responsive, minimalist and clean app to display nearby bus, tram, subway etc. 
 ## Config
 ```json
 {
-    "lat": "latitude",
-    "lon": "longitude",
     "port": "webserver port"
 }
 ```
 ## API
-The server is using the BKK FUTÁR API through [Apiary](https://bkkfutar.docs.apiary.io/#)
+The server is using the BKK FUTÁR API through [Apiary](https://bkkfutar.docs.apiary.io/)
 It might be unofficial!
+**Update!**
+BKK said that its official API will be published around Q3, 2021.
 ## Images
-**The images found in the client/svg folder belong to BKK!**
+**Most images found in the client/svg folder belong to BKK!**
+Some icons were found on Tabler Icons and they were free.
