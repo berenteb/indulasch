@@ -18,7 +18,9 @@ async function createFields() {
             return;
         }
         dismissError();
-        document.getElementById("mainTitle").innerHTML = `Közeli indulások: ${area === "" ? data.areaName : area} környéke`
+        document.getElementById("mainTitle").innerHTML = `${
+          area === "" ? data.areaName : area
+        } környéke`;
         content.innerHTML = '';
         if(data.departures.length>0){
             data.departures.forEach(row => {

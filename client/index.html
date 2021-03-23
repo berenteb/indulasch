@@ -1,49 +1,89 @@
 <!DOCTYPE html>
 <html>
-    <head>
-        <meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
-        <title>Közeli Indulások Client</title>
-        <link rel="stylesheet" href="style.css">
-        <script src="script.js"></script>
-    </head>
-    <body>
-        <div class="app" id="app">
-            <div class="settingsPanelContainer" id="settingsPanelContainer">
-                <div class="settingsPanel">
-                    <h2>Beállítások</h2>
-                    <div class="formGroup">
-                        <label for="lat">Szélességi fok (lat)</label>
-                        <input class="roundField" id="latInput" name="lat" type="number">
-                    </div>
-                    <div class="formGroup">
-                        <label for="lon">Hosszúsági fok (lon)</label>
-                        <input class="roundField" id="lonInput" name="lon" type="number">
-                    </div>
-                    <div class="formGroup">
-                        <label for="area">Környék neve (autómatikusan az első járat megállójának neve)</label>
-                        <input class="roundField" id="areaInput" name="area" type="text">
-                    </div>
-                    <button class="roundField animation1" onclick="saveData(); toggleSettings()">Mentés</button>
-                </div>
-            </div>
-            <div class="titleBar">
-                <h1 id="mainTitle">
-                    Közeli indulások
-                </h1>
-                <svg onclick="toggleSettings()" xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-settings animation1" viewBox="0 0 24 24" stroke-width="1.5" stroke="#000000" fill="none" stroke-linecap="round" stroke-linejoin="round">
-                    <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
-                    <path d="M10.325 4.317c.426 -1.756 2.924 -1.756 3.35 0a1.724 1.724 0 0 0 2.573 1.066c1.543 -.94 3.31 .826 2.37 2.37a1.724 1.724 0 0 0 1.065 2.572c1.756 .426 1.756 2.924 0 3.35a1.724 1.724 0 0 0 -1.066 2.573c.94 1.543 -.826 3.31 -2.37 2.37a1.724 1.724 0 0 0 -2.572 1.065c-.426 1.756 -2.924 1.756 -3.35 0a1.724 1.724 0 0 0 -2.573 -1.066c-1.543 .94 -3.31 -.826 -2.37 -2.37a1.724 1.724 0 0 0 -1.065 -2.572c-1.756 -.426 -1.756 -2.924 0 -3.35a1.724 1.724 0 0 0 1.066 -2.573c-.94 -1.543 .826 -3.31 2.37 -2.37c1 .608 2.296 .07 2.572 -1.065z" />
-                    <circle cx="12" cy="12" r="3" />
-                </svg>
-            </div>
-            <div class="content" id="content">
-                
-            </div>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html;charset=UTF-8" />
+    <title>Közeli Indulások Client</title>
+    <link rel="stylesheet" href="style.css" />
+    <link rel="apple-touch-icon" sizes="57x57" href="icon/apple-icon-57x57.png" />
+    <link rel="apple-touch-icon" sizes="60x60" href="icon/apple-icon-60x60.png" />
+    <link rel="apple-touch-icon" sizes="72x72" href="icon/apple-icon-72x72.png" />
+    <link rel="apple-touch-icon" sizes="76x76" href="icon/apple-icon-76x76.png" />
+    <link rel="apple-touch-icon" sizes="114x114" href="icon/apple-icon-114x114.png" />
+    <link rel="apple-touch-icon" sizes="120x120" href="icon/apple-icon-120x120.png" />
+    <link rel="apple-touch-icon" sizes="144x144" href="icon/apple-icon-144x144.png" />
+    <link rel="apple-touch-icon" sizes="152x152" href="icon/apple-icon-152x152.png" />
+    <link rel="apple-touch-icon" sizes="180x180" href="icon/apple-icon-180x180.png" />
+    <link rel="icon" type="image/png" sizes="192x192" href="icon/android-icon-192x192.png"/>
+    <link rel="icon" type="image/png" sizes="32x32" href="icon/favicon-32x32.png" />
+    <link rel="icon" type="image/png" sizes="96x96" href="icon/favicon-96x96.png" />
+    <link rel="icon" type="image/png" sizes="16x16" href="icon/favicon-16x16.png" />
+    <link rel="manifest" href="/manifest.json" />
+    <meta name="msapplication-TileColor" content="#f5f5dc" />
+    <meta name="msapplication-TileImage" content="icon/ms-icon-144x144.png" />
+    <meta name="theme-color" content="#52165a" />
+    <script src="script.js"></script>
+  </head>
+  <body>
+    <div class="app" id="app">
+      <div class="settingsPanelContainer" id="settingsPanelContainer">
+        <div class="settingsPanel">
+          <h2>Beállítások</h2>
+          <div class="formGroup">
+            <label for="lat">Szélességi fok (lat)</label>
+            <input class="roundField" id="latInput" name="lat" type="number" />
+          </div>
+          <div class="formGroup">
+            <label for="lon">Hosszúsági fok (lon)</label>
+            <input class="roundField" id="lonInput" name="lon" type="number" />
+          </div>
+          <div class="formGroup">
+            <label for="area"
+              >Környék neve (autómatikusan az első járat megállójának
+              neve)</label
+            >
+            <input class="roundField" id="areaInput" name="area" type="text" />
+          </div>
+          <button
+            class="roundField animation1"
+            onclick="saveData(); toggleSettings()"
+          >
+            Mentés
+          </button>
         </div>
-        <div class="errorContainer" id="errorContainer">
-            <div class="errorField">
-                <h2 class="errorMessage" id="errorMessage">Általános hiba</h2>
-            </div>
+      </div>
+      <div class="titleBar">
+        <div id="logoContainer" class="titleBarImageField">
+          <img class="titleBarImage" src="/svg/logo.svg" alt="induláSch" />
         </div>
-    </body>
+        <div class="titleBarTextField">
+          <h1 id="mainTitle">Közeli indulások</h1>
+        </div>
+        <div id="settingsButtonContainer" class="titleBarImageField">
+          <svg
+            onclick="toggleSettings()"
+            xmlns="http://www.w3.org/2000/svg"
+            class="titleBarImage icon icon-tabler icon-tabler-settings animation1"
+            viewBox="0 0 24 24"
+            stroke-width="1.5"
+            stroke="#000000"
+            fill="none"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          >
+            <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+            <path
+              d="M10.325 4.317c.426 -1.756 2.924 -1.756 3.35 0a1.724 1.724 0 0 0 2.573 1.066c1.543 -.94 3.31 .826 2.37 2.37a1.724 1.724 0 0 0 1.065 2.572c1.756 .426 1.756 2.924 0 3.35a1.724 1.724 0 0 0 -1.066 2.573c.94 1.543 -.826 3.31 -2.37 2.37a1.724 1.724 0 0 0 -2.572 1.065c-.426 1.756 -2.924 1.756 -3.35 0a1.724 1.724 0 0 0 -2.573 -1.066c-1.543 .94 -3.31 -.826 -2.37 -2.37a1.724 1.724 0 0 0 -1.065 -2.572c-1.756 -.426 -1.756 -2.924 0 -3.35a1.724 1.724 0 0 0 1.066 -2.573c-.94 -1.543 .826 -3.31 2.37 -2.37c1 .608 2.296 .07 2.572 -1.065z"
+            />
+            <circle cx="12" cy="12" r="3" />
+          </svg>
+        </div>
+      </div>
+      <div class="content" id="content"></div>
+    </div>
+    <div class="errorContainer" id="errorContainer">
+      <div class="errorField">
+        <h2 class="errorMessage" id="errorMessage">Általános hiba</h2>
+      </div>
+    </div>
+  </body>
 </html>
