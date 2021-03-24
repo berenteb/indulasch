@@ -33,7 +33,7 @@ function getData(lat, lon) {
                 var parsedData = parseData(parsed.data)
                 if (parsedData !== false) {
                   parsedData.areaName = getAreaName(parsed);
-                  //   fs.writeFileSync("./result.json", str);
+                  // fs.writeFileSync("./result.json", str);
                   parsedData.departures = sortData(parsedData.departures);
                   resolve(parsedData);
                 } else reject("Hiba");
@@ -62,7 +62,8 @@ function sortData(array) {
 function getAreaName(data) {
     try {
         let stopId = data.data.list[0].stopTimes[0].stopId;
-        return data.data.references.stops[stopId].name;
+        let junctionID = data.data.references.stops[stopId].parentStationId;
+        return data.data.references.stops[junctionID].name;
     } catch (error) {
         return "Ismeretlen hely"
     }

@@ -1,5 +1,7 @@
 var lat, lon, area, locationEnabled;
 var settingsOpen = false;
+const default_lat = "47.473443";
+const default_lon = "19.052844";
 /**
  * Gets data from the server.
  * @returns Data in JSON
@@ -116,6 +118,12 @@ function saveData() {
     lon = document.getElementById("lonInput").value;
     area = document.getElementById("areaInput").value;
     locationEnabled = document.getElementById("locationCheckbox").checked;
+    if (lat == "" || lon == "") {
+      lat = default_lat;
+      lon = default_lon;
+      document.getElementById("latInput").value = lat;
+      document.getElementById("lonInput").value = lon;
+    }
     localStorage.setItem("lat", lat.toString());
     localStorage.setItem("lon", lon.toString());
     localStorage.setItem("area", area);
@@ -126,8 +134,8 @@ function saveData() {
  * Reads data from localStorage and initializes global variables.
  */
 function restoreData() {
-    lat = localStorage.getItem("lat") || "47.489612";
-    lon = localStorage.getItem("lon") || "19.062144";
+    lat = localStorage.getItem("lat") || default_lat;
+    lon = localStorage.getItem("lon") || default_lon;
     area = localStorage.getItem("area") || "";
     locationEnabled = localStorage.getItem("locationEnabled");
     if (locationEnabled === undefined || locationEnabled === null || locationEnabled === "false") {
