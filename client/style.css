@@ -78,7 +78,7 @@ p{
     align-items: center;
 }
 h2{
-    font-size: 3vmin;
+    font-size: 5vmin;
 }
 .formGroup{
     display: flex;
@@ -96,14 +96,54 @@ h2{
     text-align: center;
     margin: 10px;
 }
+label{
+    font-size: 2vmin;
+}
 input{
     border: 1px solid gray;
+    margin-top: 1vmin;
 }
 button{
     background-color: #009FE3;
     border: none;
     color: white;
     cursor: pointer;
+}
+.checkBox {
+    position: relative;
+    width: 7vmin;
+    height: 7vmin;
+    color: black;
+    border: 1px solid gray;
+    border-radius: 300px;
+    appearance: none;
+    -webkit-appearance: none;
+    cursor: pointer;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    transition: background 175ms cubic-bezier(0.1, 0.1, 0.25, 1);
+}
+.checkBox::before {
+      position: absolute;
+      content: '';
+      display: block;
+      width: 1vmin;
+      height: 3vmin;
+      border-style: solid;
+      border-color: white;
+      border-width: 0 2px 2px 0;
+      transform: rotate(45deg);
+      opacity: 0;
+}
+.checkBox:checked {
+      color: white;
+      border-color: #009FE3;
+      background: #009FE3;
+}
+.checkBox::before {
+        opacity: 1;
 }
 /* Title */
 

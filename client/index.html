@@ -29,6 +29,10 @@
         <div class="settingsPanel">
           <h2>Beállítások</h2>
           <div class="formGroup">
+            <label for="locationEnabled">Helymeghatározás</label>
+            <input onchange="handleLocationEnableChange()" id="locationCheckbox" name="locationEnabled" class="checkBox" type="checkbox">
+          </div>
+          <div class="formGroup">
             <label for="lat">Szélességi fok (lat)</label>
             <input class="roundField" id="latInput" name="lat" type="number" />
           </div>
@@ -81,7 +85,7 @@
       <div class="content" id="content"></div>
     </div>
     <div class="errorContainer" id="errorContainer">
-      <div class="errorField">
+      <div onclick="dismissError()" class="errorField">
         <h2 class="errorMessage" id="errorMessage">Általános hiba</h2>
       </div>
     </div>
