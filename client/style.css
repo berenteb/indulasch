@@ -182,6 +182,9 @@ button{
 #logoContainer{
     justify-content: flex-start;
 }
+#logo{
+    fill: black;
+}
 
 .icon-tabler-settings{
     cursor: pointer;
@@ -277,5 +280,8 @@ button{
     .settingsPanel{
         background-color: rgb(40, 40, 40);
         border: none;
+    }
+    #logo{
+        fill: white;
     }
   }
