@@ -67,7 +67,7 @@ async function createFields() {
                     }" style="background-color: #${row.style.color}; color: #${
                   row.style.icon.textColor
                 }">
-                        <p>${row.style.icon.text || "?"}</p>
+                        <h3>${row.style.icon.text || "?"}</h3>
                     </div>
                     ${
                       row.alert
