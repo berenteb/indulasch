@@ -62,7 +62,7 @@ async function createFields() {
                     <img class="lineImg" src="./svg/${
                       row.style.vehicleIcon.name
                     }.svg"></img>
-                    <div class="${
+                    <div class="lineNumber ${
                       row.style.icon.type.toLowerCase() || "box"
                     }" style="background-color: #${row.style.color}; color: #${
                   row.style.icon.textColor
