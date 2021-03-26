@@ -1,7 +1,11 @@
 var lat, lon, area, locationEnabled;
 var settingsOpen = false;
-const default_lat = "47.473443";
-const default_lon = "19.052844";
+// SCH
+// const default_lat = "47.473443";
+// const default_lon = "19.052844";
+//Széll Kálmán tér
+const default_lat = "47.506854";
+const default_lon = "19.024788";
 /**
  * Gets data from the server.
  * @returns Data in JSON
@@ -29,7 +33,7 @@ function getData() {
                 console.log(err);
                 reject("Lekérdezési hiba");
             });
-        }    
+        }
     })
 }
 /**
@@ -38,55 +42,44 @@ function getData() {
 async function createFields() {
     var content = document.getElementById("content");
     getData().then(data => {
-        if(data === "Hiba"){
+        if (data === "Hiba") {
             displayError("A szerver hibát dobott");
             return;
         }
-        if (!Array.isArray(data.departures)){
+        if (!Array.isArray(data.departures)) {
             displayError("Érvénytelen adat érkezett");
             return;
         }
-        dismissError();
-        document.getElementById("mainTitle").innerHTML = `${
-          area === "" || locationEnabled ? data.areaName : area
-        } környéke`;
-        content.innerHTML = '';
-        if(data.departures.length>0){
-            data.departures.forEach(row => {
-                let departureTime = Math.floor((row.predicted * 1000 - Date.now()) / 60000);
-                if(departureTime < 1){
+        // dismissError();
+        document.getElementById("mainTitle").innerHTML = `${area === "" || locationEnabled ? data.areaName : area
+            } környéke`;
+        content.innerHTML = "";
+        if (data.departures.length > 0) {
+            data.departures.forEach((row) => {
+                let departureTime = Math.floor(
+                    (row.predicted * 1000 - Date.now()) / 60000
+                );
+                if (departureTime < 1) {
                     departureTime = "azonnal indul";
-                }else departureTime += " perc";
+                } else departureTime += " perc";
                 let html = `<div class="field">
                 <div class="line fieldElement">
-                    <img class="lineImg" src="./svg/${
-                      row.style.vehicleIcon.name
-                    }.svg"></img>
-                    <div class="lineNumber ${
-                      row.style.icon.type.toLowerCase() || "box"
-                    }" style="background-color: #${row.style.color}; color: #${
-                  row.style.icon.textColor
-                }">
+                    <img class="lineElement lineImg" src="./svg/${row.style.vehicleIcon.name}.svg"></img>
+                    <div class="lineElement lineNumber ${row.style.icon.type.toLowerCase() || "box"}" style="background-color: #${row.style.color}; color: #${row.style.icon.textColor}">
                         <h3>${row.style.icon.text || "?"}</h3>
                     </div>
-                    ${
-                      row.alert
-                        ? "<img class='lineImg' src='./svg/alert.svg'></img>"
-                        : ""
-                    }
+                    ${row.alert ? "<img class='lineElement lineImg' src='./svg/alert.svg'></img>" : ""}
                 </div>
                 <div class="destination fieldElement">
                     <p>${row.headsign}</p>
                 </div>
                 <div class="time fieldElement">
-                    <p class="${
-                      row.isDelayed ? "delayed" : "onTime"
-                    }">${departureTime}</p>
+                    <p class="${row.isDelayed ? "delayed" : "onTime"}">${departureTime}</p>
                 </div>
             </div>`;
-            content.insertAdjacentHTML("beforeend", html);
+                content.insertAdjacentHTML("beforeend", html);
             });
-        }else{
+        } else {
             let html = `<p>Nincs a közelben indulás</p>`;
             content.insertAdjacentHTML("beforeend", html);
         }
@@ -99,7 +92,7 @@ async function createFields() {
  * @param {string} error The error message to be displayed.
  */
 function displayError(error) {
-    document.getElementById("app").style.opacity="0.3;"
+    document.getElementById("app").style.opacity = "0.3;"
     document.getElementById("errorMessage").innerHTML = error;
     document.getElementById("errorContainer").style.display = "flex";
 }
@@ -107,7 +100,7 @@ function displayError(error) {
  * Hides the error message.
  */
 function dismissError() {
-    document.getElementById("app").style.opacity="1;"
+    document.getElementById("app").style.opacity = "1;"
     document.getElementById("errorContainer").style.display = "none";
 }
 /**
@@ -119,10 +112,10 @@ function saveData() {
     area = document.getElementById("areaInput").value;
     locationEnabled = document.getElementById("locationCheckbox").checked;
     if (lat == "" || lon == "") {
-      lat = default_lat;
-      lon = default_lon;
-      document.getElementById("latInput").value = lat;
-      document.getElementById("lonInput").value = lon;
+        lat = default_lat;
+        lon = default_lon;
+        document.getElementById("latInput").value = lat;
+        document.getElementById("lonInput").value = lon;
     }
     localStorage.setItem("lat", lat.toString());
     localStorage.setItem("lon", lon.toString());
@@ -140,7 +133,7 @@ function restoreData() {
     locationEnabled = localStorage.getItem("locationEnabled");
     if (locationEnabled === undefined || locationEnabled === null || locationEnabled === "false") {
         locationEnabled = false;
-    } else if(locationEnabled === "true"){
+    } else if (locationEnabled === "true") {
         disableLocationInput(true);
     }
     document.getElementById("latInput").value = lat;
@@ -163,10 +156,10 @@ function disableLocationInput(bool) {
  */
 function toggleSettings() {
     let node = document.getElementById("settingsPanelContainer");
-    if(settingsOpen){
+    if (settingsOpen) {
         settingsOpen = false;
         node.style.display = "none";
-    }else{
+    } else {
         settingsOpen = true;
         node.style.display = "flex";
     }
