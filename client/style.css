@@ -8,12 +8,13 @@ body{
 }
 
 h1{
-    font-size: 4vmin;
+    font-size: 30px;
     text-align: center;
 }
-
-p{
-    font-size: 4vmin;
+h3,p{
+    font-size: 30px;
+    text-align: center;
+    margin: 0;
 }
 
 .app{
@@ -148,46 +149,37 @@ button{
 /* Title */
 
 .titleBar{
-    width: 100%;
-    height: 5vmin;
-    margin: 2.5vmin 0;
+    width: 90%;
+    height: 50px;
+    margin: auto;
+    padding: 20px;
     display: flex;
     flex-direction: row;
     align-items: center;
-    justify-content: space-around;
+    justify-content: space-between;
 }
 
 .titleBarImageField{
-    width: 20%;
+    max-width: 30%;
     height: 100%;
     display: flex;
     align-items: center;
     flex-direction: row;
 }
 
-.titleBarTextFiled{
-    width: 60%;
-    height: auto;
-}
-
 .titleBarImage{
-    height: 44px;
+    height: 50px;
     max-height: 100%;
     max-width: 100%;
 }
-#settingsButtonContainer{
-    justify-content: flex-end;
-}
 
-#logoContainer{
-    justify-content: flex-start;
-}
 #logo{
     fill: black;
 }
 
 .icon-tabler-settings{
     cursor: pointer;
+    max-height: 40px;
 }
 /* Main */
 .content{
@@ -198,34 +190,34 @@ button{
 }
 
 .field{
-    width: 80%;
-    min-height: 10vmin;
-    border-radius: 2vmin;
+    width: 90%;
+    border-radius: 20px;
     background-color: white;
-    padding: 1vmin 0;
+    padding:30px 10px;
     display: flex;
     flex-direction: row;
     justify-content: space-between;
     align-items: center;
     overflow: hidden;
-    margin: 1vmin 0;
+    margin: 10px 0;
 }
 
 .fieldElement{
-    margin: 0 2vmin;
+    margin: 0 10px;
 }
 
 .line{
-    height: 10vmin;
+    height:30px;
     display: flex;
     flex-direction: row;
     justify-content: space-between;
     align-items: center;
+    margin-right: 10px;
 }
 
 .lineImg{
-    height: 8vmin;
-    margin-right: 1vmin;
+    height: 60px;
+    margin-right: 10px;
 }
 
 .destination{
@@ -237,25 +229,25 @@ button{
 }
 
 .circle{
-    border-radius: 4vmin;
-    width: 8vmin;
+    border-radius: 300px;
+    width: 60px;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
     font-weight: bold;
-    height: 8vmin;
+    height: 60px;
 }
 
 .box{
-    border-radius: 1vmin;
-    width: 12vmin;
+    border-radius: 10px;
+    width: 100px;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
     font-weight: bold;
-    height: 8vmin;
+    height: 60px;
 }
 
 .onTime{
@@ -285,3 +277,16 @@ button{
         fill: white;
     }
   }
+
+@media screen and (max-width: 1000px){
+    h1{
+        font-size: 2.5vmin;
+        text-align: center;
+    }
+    
+    p{
+        font-size: 2.5vmin;
+        text-align: center;
+        margin: 0;
+    }
+}
