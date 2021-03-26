@@ -7,11 +7,7 @@ body{
     font-family: 'Open Sans', sans-serif;
 }
 
-h1{
-    font-size: 30px;
-    text-align: center;
-}
-h3,p{
+h1,h3,p{
     font-size: 30px;
     text-align: center;
     margin: 0;
@@ -24,6 +20,7 @@ h3,p{
     position: absolute;
 }
 
+/* Global transition style */
 .animation1{
     transition: .3s;
 }
@@ -110,6 +107,7 @@ button{
     color: white;
     cursor: pointer;
 }
+/* Settings checkbox */
 .checkBox {
     position: relative;
     width: 7vmin;
@@ -146,7 +144,8 @@ button{
 .checkBox::before {
         opacity: 1;
 }
-/* Title */
+
+/* TitleBar */
 
 .titleBar{
     width: 90%;
@@ -188,7 +187,7 @@ button{
     align-items: center;
     justify-content: flex-start;
 }
-
+/* One record / data */
 .field{
     width: 90%;
     border-radius: 20px;
@@ -212,7 +211,6 @@ button{
     flex-direction: row;
     justify-content: space-between;
     align-items: center;
-    margin-right: 10px;
 }
 
 .lineImg{
@@ -220,34 +218,23 @@ button{
     margin-right: 10px;
 }
 
-.destination{
-    max-width: 40%;
-}
-
-.destination > p{
-    max-width: 100%;
+.lineNumber{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    font-weight: bold;
+    height: 60px;
 }
 
 .circle{
     border-radius: 300px;
     width: 60px;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    font-weight: bold;
-    height: 60px;
 }
 
 .box{
     border-radius: 10px;
     width: 100px;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    font-weight: bold;
-    height: 60px;
 }
 
 .onTime{
