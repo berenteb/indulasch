@@ -3,7 +3,7 @@
   "short_name": "iSch",
   "theme_color": "#52165a",
   "background_color": "#f5f5dc",
-  "display": "browser",
+  "display": "fullscreen",
   "scope": "/",
   "start_url": "/"
 }
