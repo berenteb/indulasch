@@ -9,9 +9,10 @@ const app = express();
  *
  * @param {string} lat Latitude of location.
  * @param {string} lon Longitude of location.
+ * @param {string} radius Radius for departures.
  * @returns The generated URL with query params.
  */
-function getUrl(lat, lon) {
+function getUrl(lat, lon, radius) {
     let api_url = new URL("https://futar.bkk.hu/api/query/v1/ws/otp/api/where/arrivals-and-departures-for-location.json");
     api_url.searchParams.append("lon", lon);
     api_url.searchParams.append("lat", lat);
@@ -21,7 +22,7 @@ function getUrl(lat, lon) {
     api_url.searchParams.append("limit", "30");
     api_url.searchParams.append("groupLimit", "1");
     api_url.searchParams.append("onlyDepartures", "true");
-    api_url.searchParams.append("radius", "150");
+    api_url.searchParams.append("radius", radius);
     return api_url;
 }
 
@@ -29,11 +30,12 @@ function getUrl(lat, lon) {
  *
  * @param {string} lat Latitude of location.
  * @param {string} lon Longitude of location.
+ * @param {string} radius Radius for departures.
  * @returns Promise with the https request. Resolves if data is received and is in the correct format, rejects if any error happened.
  */
-function getData(lat, lon) {
+function getData(lat, lon, radius) {
     return new Promise((resolve, reject) => {
-        https.get(getUrl(lat, lon), (res) => {
+        https.get(getUrl(lat, lon, radius), (res) => {
             var str = '';
             res.on('data', (chunk) => {
                 str += chunk;
@@ -105,14 +107,14 @@ function parseData(data) {
 app.use(express.json());
 
 app.post("/data", (req, res) => {
-    if (req.body.lat && req.body.lon) {
-        getData(req.body.lat, req.body.lon).then(result => {
+    if (req.body.lat && req.body.lon && req.body.radius) {
+        getData(req.body.lat, req.body.lon, req.body.radius).then(result => {
             res.send(result);
         }).catch(err => {
             res.send("Hiba");
         })
     } else {
-        res.send("Koordinátákat nem kapott.")
+        res.send("Rossz lekérdezés")
     }
 })
 
