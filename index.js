@@ -5,8 +5,12 @@ const fs = require("fs");
 const express = require("express");
 const config = require("./config.json");
 const app = express();
-
-
+/**
+ *
+ * @param {string} lat Latitude of location.
+ * @param {string} lon Longitude of location.
+ * @returns The generated URL with query params.
+ */
 function getUrl(lat, lon) {
     let api_url = new URL("https://futar.bkk.hu/api/query/v1/ws/otp/api/where/arrivals-and-departures-for-location.json");
     api_url.searchParams.append("lon", lon);
@@ -21,6 +25,12 @@ function getUrl(lat, lon) {
     return api_url;
 }
 
+/**
+ *
+ * @param {string} lat Latitude of location.
+ * @param {string} lon Longitude of location.
+ * @returns Promise with the https request. Resolves if data is received and is in the correct format, rejects if any error happened.
+ */
 function getData(lat, lon) {
     return new Promise((resolve, reject) => {
         https.get(getUrl(lat, lon), (res) => {
@@ -32,10 +42,12 @@ function getData(lat, lon) {
                 var parsed = JSON.parse(str);
                 var parsedData = parseData(parsed.data)
                 if (parsedData !== false) {
-                  parsedData.areaName = getAreaName(parsed);
-                  // fs.writeFileSync("./result.json", str);
-                  parsedData.departures.sort((x, y) => x.predicted > y.predicted ? 1 : -1);
-                  resolve(parsedData);
+                    parsedData.areaName = getAreaName(parsed);
+                    // Uncomment the following line while debugging the API response!
+                    // fs.writeFileSync("./result.json", str);
+                    // Sort data based on predicted departure time
+                    parsedData.departures.sort((x, y) => x.predicted > y.predicted ? 1 : -1);
+                    resolve(parsedData);
                 } else reject("Hiba");
             })
             res.on('error', (err) => {
@@ -44,7 +56,11 @@ function getData(lat, lon) {
         });
     })
 }
-
+/**
+ *
+ * @param {object} data The received data from the API.
+ * @returns The area name as string if available, else returns "Ismeretlen hely"
+ */
 function getAreaName(data) {
     try {
         let stopId = data.data.list[0].stopTimes[0].stopId;
@@ -54,7 +70,11 @@ function getAreaName(data) {
         return "Ismeretlen hely"
     }
 }
-
+/**
+ *
+ * @param {object} data The received data from the API.
+ * @returns The object with the neccessary data for the front-end, returns false if it fails.
+ */
 function parseData(data) {
     var parsedData = {
         departures: []
