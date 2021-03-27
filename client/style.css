@@ -103,6 +103,7 @@ h2{
 }
 label{
     font-size: 2vmin;
+    margin-bottom: 5px;
 }
 input{
     border: 1px solid gray;
@@ -283,6 +284,9 @@ button{
     }
     #logo{
         fill: white;
+    }
+    .checkBox::before {
+        border-color: rgb(40, 40, 40);
     }
   }
 
