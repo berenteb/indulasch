@@ -1,6 +1,7 @@
 # InduláSch for BKK FUTÁR
 A responsive, minimalist and clean app to display nearby bus, tram, subway etc. departures. Made for Budapest.
 ## Config
+A config.json file is required with the following field(s):
 ```json
 {
     "port": "webserver port"
