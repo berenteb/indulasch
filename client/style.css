@@ -171,6 +171,7 @@ button{
     backdrop-filter: blur(10px);
     width: 90%;
     height: 5%;
+    min-height: 60px;
     padding: 20px;
     display: flex;
     flex-direction: row;
@@ -187,7 +188,7 @@ button{
 }
 
 .titleBarImage{
-    height: 40px;
+    height: 50px;
     max-height: 100%;
     max-width: 100%;
 }
@@ -286,14 +287,7 @@ button{
   }
 
 @media screen and (max-width: 1000px){
-    h1{
-        font-size: 2.5vmin;
-        text-align: center;
-    }
-    
     p{
-        font-size: 2.5vmin;
-        text-align: center;
-        margin: 0;
+        font-size: 2.5vw;
     }
 }
