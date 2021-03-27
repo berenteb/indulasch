@@ -1,4 +1,4 @@
-# Nearby Departures Display Client and Server based on BKK FUTÁR API
+# InduláSch for BKK FUTÁR
 A responsive, minimalist and clean app to display nearby bus, tram, subway etc. departures. Made for Budapest.
 ## Config
 ```json
