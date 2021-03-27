@@ -50,7 +50,7 @@ async function createFields() {
             displayError("Érvénytelen adat érkezett");
             return;
         }
-        // dismissError();
+        dismissError();
         document.getElementById("mainTitle").innerHTML = `${area === "" || locationEnabled ? data.areaName : area
             } környéke`;
         content.innerHTML = "";
