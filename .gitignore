@@ -150,3 +150,6 @@ dist
 result.json
 config.json
 Logo.ai
+
+#PhpStorm
+.idea

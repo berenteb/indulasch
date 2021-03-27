@@ -34,7 +34,7 @@ function getData(lat, lon) {
                 if (parsedData !== false) {
                   parsedData.areaName = getAreaName(parsed);
                   // fs.writeFileSync("./result.json", str);
-                  parsedData.departures = sortData(parsedData.departures);
+                  parsedData.departures.sort((x, y) => x.predicted > y.predicted ? 1 : -1);
                   resolve(parsedData);
                 } else reject("Hiba");
             })
@@ -43,20 +43,6 @@ function getData(lat, lon) {
             })
         });
     })
-}
-
-function sortData(array) {
-    let len = array.length;
-    for (let i = 0; i < len; i++) {
-        for (let j = 0; j < len - 1; j++) {
-            if (array[j].predicted > array[j + 1].predicted) {
-                let tmp = array[j];
-                array[j] = array[j + 1];
-                array[j + 1] = tmp;
-            }
-        }
-    }
-    return array;
 }
 
 function getAreaName(data) {
