@@ -84,8 +84,10 @@ h1,h3,p{
 }
 h2{
     font-size: 5vmin;
+    margin: 2vmin 0;
 }
 .formGroup{
+    height: 10vh;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -95,11 +97,10 @@ h2{
     max-width: 90%;
     width: 50vmin;
     border-radius: 300px;
-    min-height: 5vmin;
-    padding: 20px;
-    font-size: 4vmin;
+    height: 6vmin;
+    padding: 1vmin;
+    font-size: 3vmin;
     text-align: center;
-    margin: 10px;
 }
 label{
     font-size: 2vmin;
@@ -107,7 +108,6 @@ label{
 }
 input{
     border: 1px solid gray;
-    margin-top: 1vmin;
 }
 button{
     background-color: #009FE3;
@@ -131,8 +131,8 @@ button{
 /* Settings checkbox */
 .checkBox {
     position: relative;
-    width: 7vmin;
-    height: 7vmin;
+    width: 5vmin;
+    height: 5vmin;
     color: black;
     border: 1px solid gray;
     border-radius: 300px;
