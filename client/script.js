@@ -1,4 +1,4 @@
-var lat, lon, area, locationEnabled;
+var lat, lon, radius, area, locationEnabled;
 var settingsOpen = false;
 // SCH
 // const default_lat = "47.473443";
@@ -6,6 +6,7 @@ var settingsOpen = false;
 //Széll Kálmán tér
 const default_lat = "47.506854";
 const default_lon = "19.024788";
+const default_radius = "150";
 /**
  * Gets data from the server.
  * @returns Data in JSON
@@ -14,7 +15,7 @@ function getData() {
     return new Promise((resolve, reject) => {
         if (locationEnabled) {
             navigator.geolocation.getCurrentPosition(async (geodata) => {
-                fetch(location.href + "data", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ "lat": geodata.coords.latitude.toString(), "lon": geodata.coords.longitude.toString() }) }).then(result => {
+                fetch(location.href + "data", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ "lat": geodata.coords.latitude.toString(), "lon": geodata.coords.longitude.toString(), "radius": radius }) }).then(result => {
                     resolve(result.json());
                 }).catch(err => {
                     console.log(err);
@@ -27,7 +28,7 @@ function getData() {
                 reject("Helymeghatározási hiba");
             });
         } else {
-            fetch(location.href + "data", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ "lat": lat, "lon": lon }) }).then(result => {
+            fetch(location.href + "data", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ "lat": lat, "lon": lon, "radius": radius }) }).then(result => {
                 resolve(result.json());
             }).catch(err => {
                 console.log(err);
@@ -109,6 +110,7 @@ function dismissError() {
 function saveData() {
     lat = document.getElementById("latInput").value;
     lon = document.getElementById("lonInput").value;
+    radius = document.getElementById("radiusInput").value;
     area = document.getElementById("areaInput").value;
     locationEnabled = document.getElementById("locationCheckbox").checked;
     if (lat == "" || lon == "") {
@@ -117,8 +119,13 @@ function saveData() {
         document.getElementById("latInput").value = lat;
         document.getElementById("lonInput").value = lon;
     }
+    if (radius == "") {
+        radius = default_radius
+        document.getElementById("radiusInput").value = radius;
+    }
     localStorage.setItem("lat", lat.toString());
     localStorage.setItem("lon", lon.toString());
+    localStorage.setItem("radius", radius.toString());
     localStorage.setItem("area", area);
     localStorage.setItem("locationEnabled", locationEnabled);
     createFields();
@@ -129,6 +136,7 @@ function saveData() {
 function restoreData() {
     lat = localStorage.getItem("lat") || default_lat;
     lon = localStorage.getItem("lon") || default_lon;
+    radius = localStorage.getItem("radius") || default_radius;
     area = localStorage.getItem("area") || "";
     locationEnabled = localStorage.getItem("locationEnabled");
     if (locationEnabled === undefined || locationEnabled === null || locationEnabled === "false") {
@@ -138,6 +146,7 @@ function restoreData() {
     }
     document.getElementById("latInput").value = lat;
     document.getElementById("lonInput").value = lon;
+    document.getElementById("radiusInput").value = radius;
     document.getElementById("areaInput").value = area;
     document.getElementById("locationCheckbox").checked = locationEnabled;
 }

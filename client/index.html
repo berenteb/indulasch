@@ -36,12 +36,19 @@
             <input class="roundField" id="lonInput" name="lon" type="number" />
           </div>
           <div class="formGroup">
+            <label for="radius">Hatósugár (m)</label>
+            <input class="roundField" id="radiusInput" name="radius" type="number" min="50" max="1000" step="10"/>
+          </div>
+          <div class="formGroup">
             <label for="area">Környék neve (üresen hagyva automatikus)</label>
             <input class="roundField" id="areaInput" name="area" type="text" />
           </div>
-          <button class="roundField animation1" onclick="saveData(); toggleSettings()">
-            Mentés
-          </button>
+          <div class="formGroup">
+            <button class="roundField animation1" onclick="saveData(); toggleSettings()">
+              Mentés
+            </button>
+          </div>
+          
         </div>
       </div>
       <div class="titleBar">
