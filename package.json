@@ -5,10 +5,10 @@
   "main": "index.js",
   "type": "commonjs",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "init_config": "echo > config.json"
   },
-  "author": "",
-  "license": "ISC",
+  "author": "Bálint Berente",
+  "license": "MIT",
   "dependencies": {
     "colors": "^1.4.0",
     "express": "^4.17.1",
