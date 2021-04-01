@@ -15,7 +15,7 @@ function getData() {
     return new Promise((resolve, reject) => {
         if (locationEnabled) {
             navigator.geolocation.getCurrentPosition(async (geodata) => {
-                fetch(location.href + "data", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ "lat": geodata.coords.latitude.toString(), "lon": geodata.coords.longitude.toString(), "radius": radius }) }).then(result => {
+                fetch(location.href + "data", { method: "POST", headers: { "Content-Type": "application/json; charset='utf-8'" }, body: JSON.stringify({ "lat": geodata.coords.latitude.toString(), "lon": geodata.coords.longitude.toString(), "radius": radius }) }).then(result => {
                     resolve(result.json());
                 }).catch(err => {
                     console.log(err);

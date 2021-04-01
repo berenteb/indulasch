@@ -35,7 +35,7 @@ function getUrl(lat, lon, radius) {
  */
 function getData(lat, lon, radius) {
     return new Promise((resolve, reject) => {
-        https.get(getUrl(lat, lon, radius), (res) => {
+        https.get(getUrl(lat, lon, radius), { headers: { "Content-Type": "application/json; charset='utf-8'" } }, (res) => {
             var str = '';
             res.on('data', (chunk) => {
                 str += chunk;
