@@ -181,7 +181,7 @@ button{
 }
 
 .titleBarImageField{
-    max-width: 30%;
+    width: 30%;
     height: 100%;
     display: flex;
     align-items: center;
@@ -194,7 +194,15 @@ button{
     max-width: 100%;
 }
 
-#logo{
+.logoField{
+    justify-content: flex-start;
+}
+
+.settingsIconField{
+    justify-content: flex-end;
+}
+
+.logo{
     fill: black;
 }
 
@@ -228,12 +236,20 @@ button{
     margin: 10px;
 }
 
-.line{
+.time, .line{
+    width: 30%;
     height: 60px;
     display: flex;
     flex-direction: row;
-    justify-content: space-between;
     align-items: center;
+}
+
+.time{
+    justify-content: flex-end;
+}
+
+.line{
+    justify-content: flex-start;
 }
 
 .lineElement{
