@@ -5,6 +5,7 @@ const fs = require("fs");
 const express = require("express");
 const config = require("./config.json");
 const app = express();
+const weather = require("./weather.js");
 /**
  *
  * @param {string} lat Latitude of location.
@@ -116,7 +117,18 @@ app.post("/data", (req, res) => {
     } else {
         res.send("Rossz lekérdezés")
     }
-})
+});
+
+app.get("/weather", (req, res) => {
+    res.setHeader('Content-Type', 'application/json');
+    if(req.query.lat && req.query.lon){
+        weather.getWeather(req.query.lat, req.query.lon).then(result => {
+            res.send(result);
+        })
+    }else{
+        res.send("Latitude vagy Longitude hiányzik");
+    }
+});
 
 app.use(express.static("./client"));
 
