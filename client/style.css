@@ -1,5 +1,18 @@
 @import url('https://fonts.googleapis.com/css2?family=Open+Sans&display=swap');
 
+:root{
+    --app-color: beige;
+
+    --white: white;
+    --gray: gray;
+    --black: black;
+    --green: rgb(0, 170, 0);
+    --red: #E41F18;
+    --blue: #009FE3;
+
+    --dark-gray: rgb(40, 40, 40);
+}
+
 body{
     width: 100vw;
     height: 100vh;
@@ -17,7 +30,7 @@ h1,h3,p{
 .app{
     width: 100%;
     height: 100%;
-    background-color: beige;
+    background-color: var(--app-color);
     position: absolute;
     display: flex;
     flex-direction: column;
@@ -51,8 +64,8 @@ h1,h3,p{
 .errorField{
     width: 70vw;
     border-radius: 5vmin;
-    background-color: #E41F18;
-    color: white;
+    background-color: var(--red);
+    color: var(--white);
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -75,8 +88,8 @@ h1,h3,p{
     height: 90vh;
     width: 90vw;
     border-radius: 10vmin;
-    background-color: white;
-    border: 1px solid grey;
+    background-color: var(--white);
+    border: 1px solid var(--gray);
     display: flex;
     flex-direction: column;
     justify-content: space-evenly;
@@ -107,22 +120,22 @@ label{
     margin-bottom: 5px;
 }
 input{
-    border: 1px solid gray;
+    border: 1px solid var(--gray);
 }
 button{
-    background-color: #009FE3;
+    background-color: var(--blue);
     border: none;
-    color: white;
+    color: var(--white);
     cursor: pointer;
 }
 .closeButton{
     width: 40px;
     height: 40px;
-    stroke: gray;
+    stroke: var(--gray);
     cursor: pointer;
     float: right;
     padding: 5px;
-    border: 1px solid gray;
+    border: 1px solid var(--gray);
     border-radius: 300px;
     position: absolute;
     right: 10%;
@@ -133,8 +146,8 @@ button{
     position: relative;
     width: 5vmin;
     height: 5vmin;
-    color: black;
-    border: 1px solid gray;
+    color: var(--black);
+    border: 1px solid var(--gray);
     border-radius: 300px;
     appearance: none;
     -webkit-appearance: none;
@@ -152,15 +165,15 @@ button{
       width: 1vmin;
       height: 3vmin;
       border-style: solid;
-      border-color: white;
+      border-color: var(--white);
       border-width: 0 2px 2px 0;
       transform: rotate(45deg);
       opacity: 0;
 }
 .checkBox:checked {
-      color: white;
-      border-color: #009FE3;
-      background: #009FE3;
+      color: var(--white);
+      border-color: var(--blue);
+      background: var(--blue);
 }
 .checkBox::before {
         opacity: 1;
@@ -203,7 +216,7 @@ button{
 }
 
 .logo{
-    fill: black;
+    fill: var(--black);
 }
 
 .icon-tabler-settings{
@@ -223,7 +236,7 @@ button{
 .field{
     width: 90%;
     border-radius: 20px;
-    background-color: white;
+    background-color: var(--white);
     padding: 10px;
     display: flex;
     flex-direction: row;
@@ -276,33 +289,33 @@ button{
 }
 
 .onTime{
-    color: rgb(0, 170, 0);
+    color: var(--green);
 }
 
 .delayed{
-    color: red;
+    color: var(--red);
 }
 
 @media (prefers-color-scheme: dark) {
     .field{
-        background-color: rgb(40, 40, 40);
+        background-color: var(--dark-gray);
     }
     .app{
-        background-color: black;
-        color: white;
+        background-color: var(--black);
+        color: var(--white);
     }
     .icon-tabler-settings{
-        stroke: white;
+        stroke: var(--white);
     }
     .settingsPanel{
-        background-color: rgb(40, 40, 40);
+        background-color: var(--dark-gray);
         border: none;
     }
     #logo{
-        fill: white;
+        fill: var(--white);
     }
     .checkBox::before {
-        border-color: rgb(40, 40, 40);
+        border-color: var(--dark-gray);
     }
   }
 
