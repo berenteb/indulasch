@@ -69,7 +69,7 @@ async function createFields() {
                     <div class="lineElement lineNumber ${row.style.icon.type.toLowerCase() || "box"}" style="background-color: #${row.style.color}; color: #${row.style.icon.textColor}">
                         <h3>${row.style.icon.text || "?"}</h3>
                     </div>
-                    ${row.alert ? "<img class='lineElement lineImg' src='./svg/alert.svg'></img>" : ""}
+                    ${row.alert ? "<img class='lineElement lineImg' src='./svg/alert_round.svg'></img>" : ""}
                 </div>
                 <div class="destination fieldElement">
                     <p>${row.headsign}</p>
