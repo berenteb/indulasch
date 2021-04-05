@@ -1,5 +1,21 @@
 @import url('https://fonts.googleapis.com/css2?family=Open+Sans&display=swap');
 
+:root{
+    --app-color: beige;
+    --weather-image: url("https://images.unsplash.com/photo-1534629938736-b1b076531d3b?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=1567&q=80");
+
+    --white: white;
+    --glass-white: rgba( 255, 255, 255, 0.50 );
+    --glass-dark: rgba( 50, 50, 50, 0.50 );
+    --gray: gray;
+    --black: black;
+    --green: rgb(0, 120, 0);
+    --red: #E41F18;
+    --blue: #009FE3;
+
+    --dark-gray: rgb(40, 40, 40);
+}
+
 body{
     width: 100vw;
     height: 100vh;
@@ -17,7 +33,7 @@ h1,h3,p{
 .app{
     width: 100%;
     height: 100%;
-    background-color: beige;
+    background-color: var(--app-color);
     position: absolute;
     display: flex;
     flex-direction: column;
@@ -51,8 +67,8 @@ h1,h3,p{
 .errorField{
     width: 70vw;
     border-radius: 5vmin;
-    background-color: #E41F18;
-    color: white;
+    background-color: var(--red);
+    color: var(--white);
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -75,8 +91,8 @@ h1,h3,p{
     height: 90vh;
     width: 90vw;
     border-radius: 10vmin;
-    background-color: white;
-    border: 1px solid grey;
+    background-color: var(--white);
+    border: 1px solid var(--gray);
     display: flex;
     flex-direction: column;
     justify-content: space-evenly;
@@ -107,22 +123,22 @@ label{
     margin-bottom: 5px;
 }
 input{
-    border: 1px solid gray;
+    border: 1px solid var(--gray);
 }
 button{
-    background-color: #009FE3;
+    background-color: var(--blue);
     border: none;
-    color: white;
+    color: var(--white);
     cursor: pointer;
 }
 .closeButton{
     width: 40px;
     height: 40px;
-    stroke: gray;
+    stroke: var(--gray);
     cursor: pointer;
     float: right;
     padding: 5px;
-    border: 1px solid gray;
+    border: 1px solid var(--gray);
     border-radius: 300px;
     position: absolute;
     right: 10%;
@@ -133,8 +149,8 @@ button{
     position: relative;
     width: 5vmin;
     height: 5vmin;
-    color: black;
-    border: 1px solid gray;
+    color: var(--black);
+    border: 1px solid var(--gray);
     border-radius: 300px;
     appearance: none;
     -webkit-appearance: none;
@@ -152,15 +168,15 @@ button{
       width: 1vmin;
       height: 3vmin;
       border-style: solid;
-      border-color: white;
+      border-color: var(--white);
       border-width: 0 2px 2px 0;
       transform: rotate(45deg);
       opacity: 0;
 }
 .checkBox:checked {
-      color: white;
-      border-color: #009FE3;
-      background: #009FE3;
+      color: var(--white);
+      border-color: var(--blue);
+      background: var(--blue);
 }
 .checkBox::before {
         opacity: 1;
@@ -169,8 +185,8 @@ button{
 /* TitleBar */
 
 .titleBar{
-    backdrop-filter: blur(10px);
-    width: 90%;
+    z-index: 50;
+    width: calc(100% - 2*20px);
     height: 5%;
     min-height: 60px;
     padding: 20px;
@@ -178,6 +194,22 @@ button{
     flex-direction: row;
     align-items: center;
     justify-content: space-between;
+}
+
+.titleBarTextField{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: center;
+}
+
+#titleTemp{
+    font-size: 38px;
+    margin: 0 20px;
+}
+
+#mainTitle{
+    margin-left: 10px;
 }
 
 .titleBarImageField{
@@ -202,10 +234,6 @@ button{
     justify-content: flex-end;
 }
 
-.logo{
-    fill: black;
-}
-
 .icon-tabler-settings{
     cursor: pointer;
 }
@@ -223,7 +251,7 @@ button{
 .field{
     width: 90%;
     border-radius: 20px;
-    background-color: white;
+    background-color: var(--white);
     padding: 10px;
     display: flex;
     flex-direction: row;
@@ -276,35 +304,82 @@ button{
 }
 
 .onTime{
-    color: rgb(0, 170, 0);
+    color: var(--green);
 }
 
 .delayed{
-    color: red;
+    color: var(--red);
 }
 
 @media (prefers-color-scheme: dark) {
     .field{
-        background-color: rgb(40, 40, 40);
+        background-color: var(--dark-gray);
     }
     .app{
-        background-color: black;
-        color: white;
+        background-color: var(--black);
+        color: var(--white);
     }
     .icon-tabler-settings{
-        stroke: white;
+        stroke: var(--white);
     }
     .settingsPanel{
-        background-color: rgb(40, 40, 40);
+        background-color: var(--dark-gray);
         border: none;
     }
     #logo{
-        fill: white;
+        fill: var(--white);
     }
     .checkBox::before {
-        border-color: rgb(40, 40, 40);
+        border-color: var(--dark-gray);
     }
-  }
+
+    /* Weather dark */
+    .weatherEnabled .app:before{
+        filter: brightness(50%) blur(0px) !important;
+    }
+
+    .weatherEnabled .field{
+        background-color: var(--glass-dark) !important;
+    }
+}
+
+
+/* Weather themes */
+.weatherEnabled .content{
+    position: relative;
+}
+
+.weatherEnabled .app:before{
+    content: "";
+    position: absolute;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    background-image: var(--weather-image);
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    filter: blur(0px);
+}
+
+.weatherEnabled .field{
+    background-color: var(--glass-white);
+    box-shadow: 0 8px 32px 0 rgba( 31, 38, 135, 0.37 );
+    backdrop-filter: blur( 15px );
+    -webkit-backdrop-filter: blur( 15px );
+    border: 1px solid rgba( 255, 255, 255, 0.18 );
+}
+
+.weatherEnabled h1{
+    color: var(--white);
+}
+
+.weatherEnabled .logo{
+    fill: var(--white);
+}
+
+.weatherEnabled .icon-tabler-settings{
+    stroke: var(--white);
+}
 
 @media screen and (max-width: 1000px){
     p{

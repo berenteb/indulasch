@@ -1,4 +1,4 @@
-var lat, lon, radius, area, locationEnabled;
+var lat, lon, radius, area, locationEnabled, weatherBackgroundEnabled;
 var settingsOpen = false;
 // SCH
 // const default_lat = "47.473443";
@@ -15,7 +15,7 @@ function getData() {
     return new Promise((resolve, reject) => {
         if (locationEnabled) {
             navigator.geolocation.getCurrentPosition(async (geodata) => {
-                fetch(location.href + "data", { method: "POST", headers: { "Content-Type": "application/json; charset='utf-8'" }, body: JSON.stringify({ "lat": geodata.coords.latitude.toString(), "lon": geodata.coords.longitude.toString(), "radius": radius }) }).then(result => {
+                fetch(location.href + "data", { method: "POST", headers: { "Content-Type": "application/json; charset=utf-8" }, body: JSON.stringify({ "lat": geodata.coords.latitude.toString(), "lon": geodata.coords.longitude.toString(), "radius": radius }) }).then(result => {
                     resolve(result.json());
                 }).catch(err => {
                     console.log(err);
@@ -28,7 +28,7 @@ function getData() {
                 reject("Helymeghatározási hiba");
             });
         } else {
-            fetch(location.href + "data", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ "lat": lat, "lon": lon, "radius": radius }) }).then(result => {
+            fetch(location.href + "data", { method: "POST", headers: { "Content-Type": "application/json; charset=utf-8" }, body: JSON.stringify({ "lat": lat, "lon": lon, "radius": radius }) }).then(result => {
                 resolve(result.json());
             }).catch(err => {
                 console.log(err);
@@ -113,6 +113,7 @@ function saveData() {
     radius = document.getElementById("radiusInput").value;
     area = document.getElementById("areaInput").value;
     locationEnabled = document.getElementById("locationCheckbox").checked;
+    weatherBackgroundEnabled = document.getElementById("weatherBackgroundCheckbox").checked;
     if (lat == "" || lon == "") {
         lat = default_lat;
         lon = default_lon;
@@ -128,6 +129,7 @@ function saveData() {
     localStorage.setItem("radius", radius.toString());
     localStorage.setItem("area", area);
     localStorage.setItem("locationEnabled", locationEnabled);
+    localStorage.setItem("weatherBackgroundEnabled", weatherBackgroundEnabled);
     createFields();
 }
 /**
@@ -138,10 +140,9 @@ function restoreData() {
     lon = localStorage.getItem("lon") || default_lon;
     radius = localStorage.getItem("radius") || default_radius;
     area = localStorage.getItem("area") || "";
-    locationEnabled = localStorage.getItem("locationEnabled");
-    if (locationEnabled === undefined || locationEnabled === null || locationEnabled === "false") {
-        locationEnabled = false;
-    } else if (locationEnabled === "true") {
+    locationEnabled = localStorage.getItem("locationEnabled") === "true";
+    weatherBackgroundEnabled = localStorage.getItem("weatherBackgroundEnabled") === "true";
+    if (locationEnabled) {
         disableLocationInput(true);
     }
     document.getElementById("latInput").value = lat;
@@ -149,6 +150,10 @@ function restoreData() {
     document.getElementById("radiusInput").value = radius;
     document.getElementById("areaInput").value = area;
     document.getElementById("locationCheckbox").checked = locationEnabled;
+    document.getElementById("weatherBackgroundCheckbox").checked = weatherBackgroundEnabled;
+    if (weatherBackgroundEnabled) {
+        handleWeatherBackgroundEnable();
+    }
 }
 /**
  * 
@@ -193,8 +198,66 @@ function handleLocationEnableChange() {
     }
 }
 
+/**
+ * Weather Api
+ */
+function fetchWeather(){
+    let url = new URL(location.href + "weather");
+    url.search = new URLSearchParams({
+        "lat" : lat,
+        "lon" : lon,
+    }).toString();
+    (new Promise((resolve, reject) => {
+        fetch(url, { method: "GET", headers: { "Content-Type": "application/json; charset='utf-8'" }}).then(result => {
+            resolve(result.json());
+        }).catch(err => {
+            reject(err);
+        });
+    })).then(data => {
+        //Weather Id names: https://openweathermap.org/weather-conditions
+        renderWeather(String(data.weather[0].id));
+        document.getElementById("titleTemp").innerText = Math.round(data.main.temp) + "°C";
+    }).catch(err => {
+        //TODO: proper error handle at weather client side
+        console.log(err);
+    });
+}
+
+function renderWeather(weatherId){
+    //Weather Id names: https://openweathermap.org/weather-conditions
+    let idMaps = [
+        //800 -> Clear sky
+        { regex: "800", url: "https://images.unsplash.com/photo-1464660439080-b79116909ce7?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=1978&q=80" },
+        //8xx -> Clouds
+        { regex: "8\\d{2}", url: "https://images.unsplash.com/photo-1517685352821-92cf88aee5a5?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=1567&q=80" },
+        //7xx -> Atmosphere
+        { regex: "7\\d{2}", url: "https://images.unsplash.com/photo-1491824989090-cc2d0b57eb0d?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=2764&q=80" },
+        //6xx -> Snow
+        { regex: "6\\d{2}", url: "https://images.unsplash.com/photo-1485594050903-8e8ee7b071a8?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=1600&q=80" },
+        //5xx -> Rain
+        { regex: "5\\d{2}", url: "https://images.unsplash.com/photo-1437624155766-b64bf17eb2ce?ixlib=rb-1.2.1&ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&auto=format&fit=crop&w=1950&q=80" },
+        //3xx -> Drizzle
+        { regex: "3\\d{2}", url: "https://images.unsplash.com/photo-1599738874797-d1632738da20?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=1950&q=80" },
+        //2xx -> Thunderstorm
+        { regex: "2\\d{2}", url: "https://images.unsplash.com/photo-1472145246862-b24cf25c4a36?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=1951&q=80" },
+    ];
+    idMaps.some((id) => {
+        if(weatherId.match(id.regex)){
+            document.documentElement.style.setProperty('--weather-image', `url("${id.url}")`);
+        }
+        return weatherId.match(id.regex);
+    });
+}
+
+function handleWeatherBackgroundEnable() {
+    var weatherBackgroundCheckbox = document.getElementById("weatherBackgroundCheckbox");
+    document.body.className = weatherBackgroundCheckbox.checked ? "weatherEnabled" : "";
+}
+
 window.onload = function () {
     restoreData();
     createFields();
-    setInterval(createFields, 10000);
+    fetchWeather();
+    setInterval(createFields, 1000 * 10);       //Fetch bkk info every 10s
+    setInterval(fetchWeather, 1000 * 60 * 60);  //Fetch weather every hour
 }

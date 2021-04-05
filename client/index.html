@@ -25,6 +25,10 @@
           </svg>
           <h2>Beállítások</h2>
           <div class="formGroup">
+            <label for="weatherBackgroundEnabled">Időjárás alapú háttérkép</label>
+            <input onchange="handleWeatherBackgroundEnable()" id="weatherBackgroundCheckbox" name="weatherBackgroundEnabled" class="checkBox" type="checkbox">
+          </div>
+          <div class="formGroup">
             <label for="locationEnabled">Helymeghatározás</label>
             <input onchange="handleLocationEnableChange()" id="locationCheckbox" name="locationEnabled" class="checkBox" type="checkbox">
           </div>
@@ -60,6 +64,7 @@
           <h1 id="mainTitle">Közeli indulások</h1>
         </div>
         <div class="titleBarImageField settingsIconField">
+          <h1 id="titleTemp"></h1>
           <svg
             onclick="toggleSettings()"
             xmlns="http://www.w3.org/2000/svg"
