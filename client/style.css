@@ -186,7 +186,6 @@ button{
 
 .titleBar{
     z-index: 50;
-    backdrop-filter: blur(10px);
     width: calc(100% - 2*20px);
     height: 5%;
     min-height: 60px;
@@ -195,10 +194,6 @@ button{
     flex-direction: row;
     align-items: center;
     justify-content: space-between;
-}
-
-h1{
-    color: var(--white);
 }
 
 .titleBarTextField{
@@ -237,10 +232,6 @@ h1{
 
 .settingsIconField{
     justify-content: flex-end;
-}
-
-.logo{
-    fill: var(--white);
 }
 
 .icon-tabler-settings{
@@ -343,22 +334,22 @@ h1{
     }
 
     /* Weather dark */
-    .weather > .app:before{
+    .weatherEnabled .app:before{
         filter: brightness(50%) blur(0px) !important;
     }
 
-    .weather > .app > .content > .field{
+    .weatherEnabled .field{
         background-color: var(--glass-dark) !important;
     }
 }
 
 
 /* Weather themes */
-.weather > .app > .content{
+.weatherEnabled .content{
     position: relative;
 }
 
-.weather > .app:before{
+.weatherEnabled .app:before{
     content: "";
     position: absolute;
     top: 0; left: 0;
@@ -370,12 +361,24 @@ h1{
     filter: blur(0px);
 }
 
-.weather > .app > .content > .field{
+.weatherEnabled .field{
     background-color: var(--glass-white);
     box-shadow: 0 8px 32px 0 rgba( 31, 38, 135, 0.37 );
     backdrop-filter: blur( 15px );
     -webkit-backdrop-filter: blur( 15px );
     border: 1px solid rgba( 255, 255, 255, 0.18 );
+}
+
+.weatherEnabled h1{
+    color: var(--white);
+}
+
+.weatherEnabled .logo{
+    fill: var(--white);
+}
+
+.weatherEnabled .icon-tabler-settings{
+    stroke: var(--white);
 }
 
 @media screen and (max-width: 1000px){

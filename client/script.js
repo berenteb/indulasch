@@ -1,4 +1,4 @@
-var lat, lon, radius, area, locationEnabled;
+var lat, lon, radius, area, locationEnabled, weatherBackgroundEnabled;
 var settingsOpen = false;
 // SCH
 // const default_lat = "47.473443";
@@ -113,6 +113,7 @@ function saveData() {
     radius = document.getElementById("radiusInput").value;
     area = document.getElementById("areaInput").value;
     locationEnabled = document.getElementById("locationCheckbox").checked;
+    weatherBackgroundEnabled = document.getElementById("weatherBackgroundCheckbox").checked;
     if (lat == "" || lon == "") {
         lat = default_lat;
         lon = default_lon;
@@ -128,6 +129,7 @@ function saveData() {
     localStorage.setItem("radius", radius.toString());
     localStorage.setItem("area", area);
     localStorage.setItem("locationEnabled", locationEnabled);
+    localStorage.setItem("weatherBackgroundEnabled", weatherBackgroundEnabled);
     createFields();
 }
 /**
@@ -138,10 +140,9 @@ function restoreData() {
     lon = localStorage.getItem("lon") || default_lon;
     radius = localStorage.getItem("radius") || default_radius;
     area = localStorage.getItem("area") || "";
-    locationEnabled = localStorage.getItem("locationEnabled");
-    if (locationEnabled === undefined || locationEnabled === null || locationEnabled === "false") {
-        locationEnabled = false;
-    } else if (locationEnabled === "true") {
+    locationEnabled = localStorage.getItem("locationEnabled") === "true";
+    weatherBackgroundEnabled = localStorage.getItem("weatherBackgroundEnabled") === "true";
+    if (locationEnabled) {
         disableLocationInput(true);
     }
     document.getElementById("latInput").value = lat;
@@ -149,6 +150,10 @@ function restoreData() {
     document.getElementById("radiusInput").value = radius;
     document.getElementById("areaInput").value = area;
     document.getElementById("locationCheckbox").checked = locationEnabled;
+    document.getElementById("weatherBackgroundCheckbox").checked = weatherBackgroundEnabled;
+    if (weatherBackgroundEnabled) {
+        handleWeatherBackgroundEnable();
+    }
 }
 /**
  * 
@@ -242,6 +247,11 @@ function renderWeather(weatherId){
         }
         return weatherId.match(id.regex);
     });
+}
+
+function handleWeatherBackgroundEnable() {
+    var weatherBackgroundCheckbox = document.getElementById("weatherBackgroundCheckbox");
+    document.body.className = weatherBackgroundCheckbox.checked ? "weatherEnabled" : "";
 }
 
 window.onload = function () {
