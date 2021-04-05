@@ -15,7 +15,7 @@ function getData() {
     return new Promise((resolve, reject) => {
         if (locationEnabled) {
             navigator.geolocation.getCurrentPosition(async (geodata) => {
-                fetch(location.href + "data", { method: "POST", headers: { "Content-Type": "application/json; charset='utf-8'" }, body: JSON.stringify({ "lat": geodata.coords.latitude.toString(), "lon": geodata.coords.longitude.toString(), "radius": radius }) }).then(result => {
+                fetch(location.href + "data", { method: "POST", headers: { "Content-Type": "application/json; charset=utf-8" }, body: JSON.stringify({ "lat": geodata.coords.latitude.toString(), "lon": geodata.coords.longitude.toString(), "radius": radius }) }).then(result => {
                     resolve(result.json());
                 }).catch(err => {
                     console.log(err);
@@ -28,7 +28,7 @@ function getData() {
                 reject("Helymeghatározási hiba");
             });
         } else {
-            fetch(location.href + "data", { method: "POST", headers: { "Content-Type": "application/json; charset='utf-8'" }, body: JSON.stringify({ "lat": lat, "lon": lon, "radius": radius }) }).then(result => {
+            fetch(location.href + "data", { method: "POST", headers: { "Content-Type": "application/json; charset=utf-8" }, body: JSON.stringify({ "lat": lat, "lon": lon, "radius": radius }) }).then(result => {
                 resolve(result.json());
             }).catch(err => {
                 console.log(err);
@@ -211,7 +211,7 @@ function fetchWeather(){
     })).then(data => {
         //Weather Id names: https://openweathermap.org/weather-conditions
         renderWeather(String(data.weather[0].id));
-        document.getElementById("titleTemp").innerText = data.main.temp + " C°";
+        document.getElementById("titleTemp").innerText = data.main.temp + "°C";
     }).catch(err => {
         //TODO: proper error handle at weather client side
         console.log(err);
