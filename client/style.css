@@ -185,6 +185,7 @@ button{
 /* TitleBar */
 
 .titleBar{
+    z-index: 100;
     backdrop-filter: blur(10px);
     width: calc(100% - 2*20px);
     height: 5%;
@@ -338,22 +339,22 @@ button{
     }
 
     /* Weather dark */
-    .weather > .app:before{
+    .weather .app:before{
         filter: brightness(50%) blur(0px) !important;
     }
 
-    .weather > .app > .content > .field{
+    .weather .field{
         background-color: var(--glass-dark) !important;
     }
 }
 
 
 /* Weather themes */
-.weather > .app > .content{
+.weather .content{
     position: relative;
 }
 
-.weather > .app:before{
+.weather .app:before{
     content: "";
     position: absolute;
     top: 0; left: 0;
@@ -365,7 +366,7 @@ button{
     filter: blur(0px);
 }
 
-.weather > .app > .content > .field{
+.weather .field{
     background-color: var(--glass-white);
     box-shadow: 0 8px 32px 0 rgba( 31, 38, 135, 0.37 );
     backdrop-filter: blur( 15px );
