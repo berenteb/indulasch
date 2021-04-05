@@ -185,6 +185,7 @@ button{
 /* TitleBar */
 
 .titleBar{
+    z-index: 50;
     backdrop-filter: blur(10px);
     width: calc(100% - 2*20px);
     height: 5%;
