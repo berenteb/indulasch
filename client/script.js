@@ -28,7 +28,7 @@ function getData() {
                 reject("Helymeghatározási hiba");
             });
         } else {
-            fetch(location.href + "data", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ "lat": lat, "lon": lon, "radius": radius }) }).then(result => {
+            fetch(location.href + "data", { method: "POST", headers: { "Content-Type": "application/json; charset='utf-8'" }, body: JSON.stringify({ "lat": lat, "lon": lon, "radius": radius }) }).then(result => {
                 resolve(result.json());
             }).catch(err => {
                 console.log(err);
