@@ -9,7 +9,7 @@
     --glass-dark: rgba( 50, 50, 50, 0.50 );
     --gray: gray;
     --black: black;
-    --green: rgb(0, 170, 0);
+    --green: rgb(0, 120, 0);
     --red: #E41F18;
     --blue: #009FE3;
 
@@ -197,6 +197,10 @@ button{
     justify-content: space-between;
 }
 
+h1{
+    color: var(--white);
+}
+
 .titleBarTextField{
     display: flex;
     flex-direction: row;
@@ -206,7 +210,7 @@ button{
 
 #titleTemp{
     font-size: 38px;
-    margin-left: 20px;
+    margin: 0 20px;
 }
 
 #mainTitle{
@@ -236,7 +240,7 @@ button{
 }
 
 .logo{
-    fill: var(--black);
+    fill: var(--white);
 }
 
 .icon-tabler-settings{
