@@ -1,4 +1,5 @@
 # InduláSch for BKK FUTÁR
+![Version](https://img.shields.io/github/package-json/v/berenteb/bkk-nearby-departures?style=flat-square) ![Issues](https://img.shields.io/github/issues/berenteb/bkk-nearby-departures?style=flat-square)  
 A responsive, minimalist and clean app to display nearby bus, tram, subway etc. departures. Made for Budapest.
 ## Config
 A config.json file is required with the following field(s):
@@ -8,8 +9,7 @@ A config.json file is required with the following field(s):
 }
 ```
 ## API
-The server is using the BKK FUTÁR API through [Apiary](https://bkkfutar.docs.apiary.io/)
-It might be unofficial!
+The server is using the BKK FUTÁR API through [Apiary](https://bkkfutar.docs.apiary.io/). It might be unofficial!  
 **Update!**
 BKK said that its official API will be published around Q3, 2021.
 ## Images
