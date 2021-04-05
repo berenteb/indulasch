@@ -211,7 +211,7 @@ function fetchWeather(){
     })).then(data => {
         //Weather Id names: https://openweathermap.org/weather-conditions
         renderWeather(String(data.weather[0].id));
-        document.getElementById("titleTemp").innerText = data.main.temp + "°C";
+        document.getElementById("titleTemp").innerText = Math.round(data.main.temp) + "°C";
     }).catch(err => {
         //TODO: proper error handle at weather client side
         console.log(err);
