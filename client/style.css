@@ -10,6 +10,7 @@
     --gray: gray;
     --black: black;
     --green: rgb(0, 120, 0);
+    --light-green: rgb(0, 170, 0);
     --red: #E41F18;
     --blue: #009FE3;
 
@@ -265,7 +266,7 @@ button{
 }
 
 .time, .line{
-    width: 30%;
+    width: 250px;
     height: 60px;
     display: flex;
     flex-direction: row;
@@ -326,11 +327,15 @@ button{
         background-color: var(--dark-gray);
         border: none;
     }
-    #logo{
+    .logo{
         fill: var(--white);
     }
     .checkBox::before {
         border-color: var(--dark-gray);
+    }
+
+    .onTime{
+        color: var(--light-green);
     }
 
     /* Weather dark */
@@ -338,7 +343,7 @@ button{
         filter: brightness(50%) blur(0px) !important;
     }
 
-    .weatherEnabled .field{
+    .weatherEnabled .field, .weatherEnabled .titleBar{
         background-color: var(--glass-dark) !important;
     }
 }
@@ -361,7 +366,7 @@ button{
     filter: blur(0px);
 }
 
-.weatherEnabled .field{
+.weatherEnabled .field, .weatherEnabled .titleBar{
     background-color: var(--glass-white);
     box-shadow: 0 8px 32px 0 rgba( 31, 38, 135, 0.37 );
     backdrop-filter: blur( 15px );
@@ -369,19 +374,7 @@ button{
     border: 1px solid rgba( 255, 255, 255, 0.18 );
 }
 
-.weatherEnabled h1{
-    color: var(--white);
-}
-
-.weatherEnabled .logo{
-    fill: var(--white);
-}
-
-.weatherEnabled .icon-tabler-settings{
-    stroke: var(--white);
-}
-
-@media screen and (max-width: 1000px){
+@media screen and (max-width: 1100px){
     p{
         font-size: 2.5vw;
     }
