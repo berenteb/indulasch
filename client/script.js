@@ -16,7 +16,7 @@ function getData() {
         if (locationEnabled) {
             navigator.geolocation.getCurrentPosition(async (geodata) => {
                 fetch(location.href + "data", { method: "POST", headers: { "Content-Type": "application/json; charset=utf-8" }, body: JSON.stringify({ "lat": geodata.coords.latitude.toString(), "lon": geodata.coords.longitude.toString(), "radius": radius }) }).then(result => {
-                    resolve(result.json());
+                    resolve(result.text());
                 }).catch(err => {
                     console.log(err);
                     reject("Lekérdezési hiba")
@@ -29,7 +29,7 @@ function getData() {
             });
         } else {
             fetch(location.href + "data", { method: "POST", headers: { "Content-Type": "application/json; charset=utf-8" }, body: JSON.stringify({ "lat": lat, "lon": lon, "radius": radius }) }).then(result => {
-                resolve(result.json());
+                resolve(result.text());
             }).catch(err => {
                 console.log(err);
                 reject("Lekérdezési hiba");
@@ -38,7 +38,7 @@ function getData() {
     })
 }
 /**
- * Main functionality. Makes a request and generates the data fields (records), and then loads it to the HTML.
+ * Main functionality. Makes a request and refreshes the data fields with the new HTML.
  */
 async function createFields() {
     var content = document.getElementById("content");
@@ -47,43 +47,8 @@ async function createFields() {
             displayError("A szerver hibát dobott");
             return;
         }
-        if (!Array.isArray(data.departures)) {
-            displayError("Érvénytelen adat érkezett");
-            return;
-        }
         dismissError();
-        document.getElementById("mainTitle").innerHTML = `${area === "" || locationEnabled ? data.areaName : area
-            } környéke`;
-        content.innerHTML = "";
-        if (data.departures.length > 0) {
-            data.departures.forEach((row) => {
-                let departureTime = Math.floor(
-                    (row.predicted * 1000 - Date.now()) / 60000
-                );
-                if (departureTime < 1) {
-                    departureTime = "azonnal indul";
-                } else departureTime += " perc";
-                let html = `<div class="field">
-                <div class="line fieldElement">
-                    <img class="lineElement lineImg" src="./svg/${row.style.vehicleIcon.name}.svg"></img>
-                    <div class="lineElement lineNumber ${row.style.icon.type.toLowerCase() || "box"}" style="background-color: #${row.style.color}; color: #${row.style.icon.textColor}">
-                        <h3>${row.style.icon.text || "?"}</h3>
-                    </div>
-                    ${row.alert ? "<img class='lineElement lineImg' src='./svg/alert_round.svg'></img>" : ""}
-                </div>
-                <div class="destination fieldElement">
-                    <p>${row.headsign}</p>
-                </div>
-                <div class="time fieldElement">
-                    <p class="${row.isDelayed ? "delayed" : "onTime"}">${departureTime}</p>
-                </div>
-            </div>`;
-                content.insertAdjacentHTML("beforeend", html);
-            });
-        } else {
-            let html = `<p>Nincs a közelben indulás</p>`;
-            content.insertAdjacentHTML("beforeend", html);
-        }
+        content.innerHTML = data;
     }).catch(err => {
         displayError(err);
     })

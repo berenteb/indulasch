@@ -1,4 +1,5 @@
 const https = require("https");
+const ejs = require("ejs");
 const colors = require("colors");
 const { URL } = require("url");
 const fs = require("fs");
@@ -6,6 +7,8 @@ const express = require("express");
 const config = require("./config.json");
 const app = express();
 const weather = require("./weather.js");
+app.set('view engine', 'ejs');
+app.use(express.static("static"));
 /**
  *
  * @param {string} lat Latitude of location.
@@ -50,7 +53,13 @@ function getData(lat, lon, radius) {
                     // fs.writeFileSync("./result.json", str);
                     // Sort data based on predicted departure time
                     parsedData.departures.sort((x, y) => x.predicted > y.predicted ? 1 : -1);
-                    resolve(parsedData);
+                    let html;
+                    try {
+                        html = ejs.render(fs.readFileSync(__dirname + "/views/field.ejs", "utf-8"), parsedData, {views:["./views"]});
+                    } catch (err) {
+                        reject("Mezőleképezési hiba");
+                    }
+                    resolve(html);
                 } else reject("Hiba");
             })
             res.on('error', (err) => {
@@ -94,6 +103,13 @@ function parseData(data) {
                     alert: st.alertIds !== undefined
                 };
                 record.isDelayed = record.predicted - record.scheduled > 180;
+                let departureText = Math.floor(
+                    (record.predicted * 1000 - Date.now()) / 60000
+                );
+                if (departureText < 1) {
+                    departureText = "azonnal indul";
+                } else departureText += " perc";
+                record.departureText = departureText;
                 parsedData.departures.push(record);
             })
 
@@ -112,6 +128,7 @@ app.post("/data", (req, res) => {
         getData(req.body.lat, req.body.lon, req.body.radius).then(result => {
             res.send(result);
         }).catch(err => {
+            console.log(err);
             res.send("Hiba");
         })
     } else {
