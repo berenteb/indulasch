@@ -1,30 +1,36 @@
+<%if(Array.isArray(departures)&&departures.length>0){%>
 <%departures.forEach(row=>{%>
-<div class="field">
-    <div class="line fieldElement">
-        <%- include("svg/"+row.style.vehicleIcon.name+".svg") %> 
-            <div class="<%='lineElement lineNumber '+(row.style.icon.type.toLowerCase() || 'box')%>" style="<%= 'background-color:#'+row.style.color+'; color:#'+row.style.icon.textColor+';'%>">
-                <h3>
-                    <%=row.style.icon.text || "?" %>
-                </h3>
-            </div>
-            <%if(row.alert){%>
-                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-alert-circle"
-                    viewBox="0 0 24 24" stroke-width="1.5" stroke="#ff9300" fill="none" stroke-linecap="round"
-                    stroke-linejoin="round">
-                    <path stroke="none" d="M0 0h24v24H0z" fill="none" />
-                    <circle cx="12" cy="12" r="9" />
-                    <line x1="12" y1="8" x2="12" y2="12" />
-                    <line x1="12" y1="16" x2="12.01" y2="16" />
-                </svg>
-                <%}%>
+    <div class="field">
+        <div class="line fieldElement">
+            <%- include("svg/"+row.style.vehicleIcon.name+".svg") %>
+                <div class="<%='lineElement lineNumber '+(row.style.icon.type.toLowerCase() || 'box')%>"
+                    style="<%= 'background-color:#'+row.style.color+'; color:#'+row.style.icon.textColor+';'%>">
+                    <h3>
+                        <%=row.style.icon.text || "?" %>
+                    </h3>
+                </div>
+                <%if(row.alert){%>
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-alert-circle"
+                        viewBox="0 0 24 24" stroke-width="1.5" stroke="#ff9300" fill="none" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                        <circle cx="12" cy="12" r="9" />
+                        <line x1="12" y1="8" x2="12" y2="12" />
+                        <line x1="12" y1="16" x2="12.01" y2="16" />
+                    </svg>
+                    <%}%>
+        </div>
+        <div class="destination fieldElement">
+            <p>
+                <%=row.headsign%>
+            </p>
+        </div>
+        <div class="time fieldElement">
+            <p class="<%=row.isDelayed ? " delayed" : "onTime" %>"><%=row.departureText%>
+            </p>
+        </div>
     </div>
-    <div class="destination fieldElement">
-        <p>
-            <%=row.headsign%>
-        </p>
-    </div>
-    <div class="time fieldElement">
-        <p class="<%=row.isDelayed ? " delayed" : "onTime" %>"><%=row.departureText%></p>
-    </div>
-</div>
-<%})%>
+    <%})%>
+<%}else{%>
+    <h2><i>Nincs közeli indulás</i></h2>
+<%}%>

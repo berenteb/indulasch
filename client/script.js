@@ -11,11 +11,11 @@ const default_radius = "150";
  * Gets data from the server.
  * @returns Data in JSON
  */
-function getData() {
+function getData(endpoint) {
     return new Promise((resolve, reject) => {
         if (locationEnabled) {
             navigator.geolocation.getCurrentPosition(async (geodata) => {
-                fetch(location.href + "data", { method: "POST", headers: { "Content-Type": "application/json; charset=utf-8" }, body: JSON.stringify({ "lat": geodata.coords.latitude.toString(), "lon": geodata.coords.longitude.toString(), "radius": radius }) }).then(result => {
+                fetch(location.href + endpoint, { method: "POST", headers: { "Content-Type": "application/json; charset=utf-8" }, body: JSON.stringify({ "lat": geodata.coords.latitude.toString(), "lon": geodata.coords.longitude.toString(), "radius": radius }) }).then(result => {
                     resolve(result.text());
                 }).catch(err => {
                     console.log(err);
@@ -28,7 +28,7 @@ function getData() {
                 reject("Helymeghatározási hiba");
             });
         } else {
-            fetch(location.href + "data", { method: "POST", headers: { "Content-Type": "application/json; charset=utf-8" }, body: JSON.stringify({ "lat": lat, "lon": lon, "radius": radius }) }).then(result => {
+            fetch(location.href + endpoint, { method: "POST", headers: { "Content-Type": "application/json; charset=utf-8" }, body: JSON.stringify({ "lat": lat, "lon": lon, "radius": radius }) }).then(result => {
                 resolve(result.text());
             }).catch(err => {
                 console.log(err);
@@ -42,13 +42,28 @@ function getData() {
  */
 async function createFields() {
     var content = document.getElementById("content");
-    getData().then(data => {
-        if (data === "Hiba") {
-            displayError("A szerver hibát dobott");
+    getData("htmldata").then(data => {
+        if (data.error) {
+            displayError(data.error);
             return;
         }
         dismissError();
         content.innerHTML = data;
+    }).catch(err => {
+        displayError(err);
+    })
+}
+/**
+ * Update area name
+ */
+ async function updateArea() {
+    var mainTitle = document.getElementById("mainTitle");
+    getData("area").then(data => {
+        if (data.error) {
+            displayError(data.error);
+            return;
+        }
+        mainTitle.innerHTML = data + " környéke";
     }).catch(err => {
         displayError(err);
     })
@@ -222,7 +237,9 @@ function handleWeatherBackgroundEnable() {
 window.onload = function () {
     restoreData();
     createFields();
+    updateArea();
     fetchWeather();
     setInterval(createFields, 1000 * 10);       //Fetch bkk info every 10s
     setInterval(fetchWeather, 1000 * 60 * 60);  //Fetch weather every hour
+    setInterval(updateArea, 1000 * 60);  //Fetch area name every minute
 }

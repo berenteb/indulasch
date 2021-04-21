@@ -5,7 +5,8 @@ A responsive, minimalist and clean app to display nearby bus, tram, subway etc. 
 A config.json file is required with the following field(s):
 ```json
 {
-    "port": "webserver port"
+    "port": "webserver port",
+    "debug_api_response": "bool, whether to save the API response to file"
 }
 ```
 ## API
