@@ -1,4 +1,5 @@
 const https = require("https");
+const ejs = require("ejs");
 const colors = require("colors");
 const { URL } = require("url");
 const fs = require("fs");
@@ -6,6 +7,11 @@ const express = require("express");
 const config = require("./config.json");
 const app = express();
 const weather = require("./weather.js");
+/**
+ * Express settings
+ */
+app.set('view engine', 'ejs');
+app.use(express.static("./client"));
 /**
  *
  * @param {string} lat Latitude of location.
@@ -46,9 +52,9 @@ function getData(lat, lon, radius) {
                 var parsedData = parseData(parsed.data)
                 if (parsedData !== false) {
                     parsedData.areaName = getAreaName(parsed);
-                    // Uncomment the following line while debugging the API response!
-                    // fs.writeFileSync("./result.json", str);
-                    // Sort data based on predicted departure time
+                    // DEBUG Area
+                    if (config.debug_api_response) fs.writeFileSync("./result.json", str);
+                    //Sort data based on predicted departure
                     parsedData.departures.sort((x, y) => x.predicted > y.predicted ? 1 : -1);
                     resolve(parsedData);
                 } else reject("Hiba");
@@ -94,6 +100,13 @@ function parseData(data) {
                     alert: st.alertIds !== undefined
                 };
                 record.isDelayed = record.predicted - record.scheduled > 180;
+                let departureText = Math.floor(
+                    (record.predicted * 1000 - Date.now()) / 60000
+                );
+                if (departureText < 1) {
+                    departureText = "azonnal indul";
+                } else departureText += " perc";
+                record.departureText = departureText;
                 parsedData.departures.push(record);
             })
 
@@ -106,31 +119,67 @@ function parseData(data) {
 }
 
 app.use(express.json());
-
+/**
+ * For API usability
+ */
 app.post("/data", (req, res) => {
     if (req.body.lat && req.body.lon && req.body.radius) {
         getData(req.body.lat, req.body.lon, req.body.radius).then(result => {
             res.send(result);
         }).catch(err => {
-            res.send("Hiba");
+            console.log(err.red);
+            res.send({ error: err });
         })
     } else {
-        res.send("Rossz lekérdezés")
+        res.send({ error: "Rossz lekérdezés" })
     }
 });
-
+/**
+ * For app usability, sends HTML code
+ */
+app.post("/htmldata", (req, res) => {
+    if (req.body.lat && req.body.lon && req.body.radius) {
+        getData(req.body.lat, req.body.lon, req.body.radius).then(result => {
+            let html;
+            try {
+                html = ejs.render(fs.readFileSync(__dirname + "/views/field.ejs", "utf-8"), result, { views: ["./views"] });
+            } catch (err) {
+                reject("Mezőleképezési hiba");
+            }
+            res.send(html);
+        }).catch(err => {
+            console.log(err.red);
+            res.send({ error: err });
+        })
+    } else {
+        res.send({ error: "Rossz lekérdezés" })
+    }
+});
+/**
+ * Get area name
+ */
+ app.post("/area", (req, res) => {
+    if (req.body.lat && req.body.lon && req.body.radius) {
+        getData(req.body.lat, req.body.lon, req.body.radius).then(result => {
+            res.send(result.areaName);
+        }).catch(err => {
+            console.log(err.red);
+            res.send({ error: err });
+        })
+    } else {
+        res.send({ error: "Rossz lekérdezés" })
+    }
+});
 app.get("/weather", (req, res) => {
     res.setHeader('Content-Type', 'application/json');
-    if(req.query.lat && req.query.lon){
+    if (req.query.lat && req.query.lon) {
         weather.getWeather(req.query.lat, req.query.lon).then(result => {
             res.send(result);
         })
-    }else{
-        res.send("Latitude vagy Longitude hiányzik");
+    } else {
+        res.send({ error: "Latitude vagy Longitude hiányzik" });
     }
 });
-
-app.use(express.static("./client"));
 
 app.listen(config.port, () => {
     console.log("Szerver elindult: " + config.port);
