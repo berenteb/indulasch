@@ -234,11 +234,15 @@ function handleWeatherBackgroundEnable() {
     document.body.className = weatherBackgroundCheckbox.checked ? "weatherEnabled" : "";
 }
 
-window.onload = function () {
-    restoreData();
+function updateAll() {
     createFields();
     updateArea();
     fetchWeather();
+}
+
+window.onload = function () {
+    restoreData();
+    updateAll();
     setInterval(createFields, 1000 * 10);       //Fetch bkk info every 10s
     setInterval(fetchWeather, 1000 * 60 * 60);  //Fetch weather every hour
     setInterval(updateArea, 1000 * 60);  //Fetch area name every minute
