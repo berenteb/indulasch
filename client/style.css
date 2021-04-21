@@ -225,6 +225,7 @@ button{
     height: 50px;
     max-height: 100%;
     max-width: 100%;
+    cursor: pointer;
 }
 
 .logoField{
@@ -233,10 +234,6 @@ button{
 
 .settingsIconField{
     justify-content: flex-end;
-}
-
-.icon-tabler-settings{
-    cursor: pointer;
 }
 /* Main */
 .content{
