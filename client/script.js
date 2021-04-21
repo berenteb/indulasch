@@ -9,7 +9,7 @@ const default_lon = "19.024788";
 const default_radius = "150";
 /**
  * Gets data from the server.
- * @returns Data in JSON
+ * @returns Promise for data query.
  */
 function getData(endpoint) {
     return new Promise((resolve, reject) => {
