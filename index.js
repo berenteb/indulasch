@@ -182,9 +182,11 @@ app.get("/weather", (req, res) => {
 });
 
 if (config.use_https) {
-    let key = fs.readFileSync("./ssl/key.pem");
-    let cert = fs.readFileSync("./ssl/cert.pem");
-    https.createServer({ key: key, cert: cert }, app).listen(config.port, () => {
+    const options = {
+        key: fs.readFileSync(path.join(__dirname, 'ssl', 'key.pem')),
+        cert: fs.readFileSync(path.join(__dirname, 'ssl', 'cert.pem'))
+      };
+    https.createServer(options, app).listen(config.port, () => {
         console.log("Szerver elindult: " + config.port);
     })
 } else {
