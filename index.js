@@ -7,6 +7,7 @@ const express = require("express");
 const config = require("./config.json");
 const app = express();
 const weather = require("./weather.js");
+const path = require("path");
 /**
  * Express settings
  */
