@@ -181,6 +181,14 @@ app.get("/weather", (req, res) => {
     }
 });
 
-app.listen(config.port, () => {
-    console.log("Szerver elindult: " + config.port);
-});
+if (config.use_https) {
+    let key = fs.readFileSync("./ssl/key.pem");
+    let cert = fs.readFileSync("./ssl/cert.pem");
+    https.createServer({ key: key, cert: cert }, app).listen(config.port, () => {
+        console.log("Szerver elindult: " + config.port);
+    })
+} else {
+    app.listen(config.port, () => {
+        console.log("Szerver elindult: " + config.port);
+    });
+}
