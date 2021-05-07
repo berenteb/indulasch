@@ -110,7 +110,7 @@ function saveData() {
     localStorage.setItem("area", area);
     localStorage.setItem("locationEnabled", locationEnabled);
     localStorage.setItem("weatherBackgroundEnabled", weatherBackgroundEnabled);
-    createFields();
+    updateAll();
 }
 /**
  * Reads data from localStorage and initializes global variables.
