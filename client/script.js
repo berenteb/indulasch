@@ -15,6 +15,9 @@ function getData(endpoint) {
     return new Promise((resolve, reject) => {
         if (locationEnabled) {
             navigator.geolocation.getCurrentPosition(async (geodata) => {
+                if (geodata.coords.accuracy > 50) {
+                    reject("Pontatlan a helymeghatározás");
+                }
                 fetch(location.href + endpoint, { method: "POST", headers: { "Content-Type": "application/json; charset=utf-8" }, body: JSON.stringify({ "lat": geodata.coords.latitude.toString(), "lon": geodata.coords.longitude.toString(), "radius": radius }) }).then(result => {
                     resolve(result.text());
                 }).catch(err => {
@@ -56,8 +59,11 @@ async function createFields() {
 /**
  * Update area name
  */
- async function updateArea() {
-    var mainTitle = document.getElementById("mainTitle");
+async function updateArea() {
+    if (!locationEnabled && area !== "") {
+        document.getElementById("mainTitle").innerHTML = area;
+    } else {
+        var mainTitle = document.getElementById("mainTitle");
     getData("area").then(data => {
         if (data.error) {
             displayError(data.error);
@@ -67,6 +73,7 @@ async function createFields() {
     }).catch(err => {
         displayError(err);
     })
+    }
 }
 /**
  * Displays an error message. This message can be dismissed by script or by tapping/clicking the error message.
@@ -110,7 +117,7 @@ function saveData() {
     localStorage.setItem("area", area);
     localStorage.setItem("locationEnabled", locationEnabled);
     localStorage.setItem("weatherBackgroundEnabled", weatherBackgroundEnabled);
-    createFields();
+    updateAll();
 }
 /**
  * Reads data from localStorage and initializes global variables.

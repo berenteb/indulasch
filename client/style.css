@@ -210,7 +210,10 @@ button{
 }
 
 #mainTitle{
+    max-width: 40vw;
     margin-left: 10px;
+    text-overflow: ellipsis;
+    overflow: hidden;
 }
 
 .titleBarImageField{
@@ -309,6 +312,10 @@ button{
     color: var(--red);
 }
 
+.icon-tabler-alert-circle{
+    max-height: 100%;
+}
+
 @media (prefers-color-scheme: dark) {
     .field{
         background-color: var(--dark-gray);
@@ -326,6 +333,7 @@ button{
     }
     .logo{
         fill: var(--white);
+        z-index: 5;
     }
     .checkBox::before {
         border-color: var(--dark-gray);
