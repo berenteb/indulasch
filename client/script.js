@@ -56,8 +56,11 @@ async function createFields() {
 /**
  * Update area name
  */
- async function updateArea() {
-    var mainTitle = document.getElementById("mainTitle");
+async function updateArea() {
+    if (!locationEnabled && area !== "") {
+        document.getElementById("mainTitle").innerHTML = area;
+    } else {
+        var mainTitle = document.getElementById("mainTitle");
     getData("area").then(data => {
         if (data.error) {
             displayError(data.error);
@@ -67,6 +70,7 @@ async function createFields() {
     }).catch(err => {
         displayError(err);
     })
+    }
 }
 /**
  * Displays an error message. This message can be dismissed by script or by tapping/clicking the error message.
