@@ -210,7 +210,10 @@ button{
 }
 
 #mainTitle{
+    max-width: 40vw;
     margin-left: 10px;
+    text-overflow: ellipsis;
+    overflow: hidden;
 }
 
 .titleBarImageField{
@@ -326,6 +329,7 @@ button{
     }
     .logo{
         fill: var(--white);
+        z-index: 5;
     }
     .checkBox::before {
         border-color: var(--dark-gray);
