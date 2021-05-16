@@ -18,8 +18,8 @@
 }
 
 body{
-    width: 100vw;
-    height: 100vh;
+    width: 100%;
+    height: 100%;
     margin: 0;
     position: fixed;
     font-family: 'Open Sans', sans-serif;
@@ -55,8 +55,8 @@ h1,h3,p{
 
 .errorContainer{
     z-index: 200;
-    width: 100vw;
-    height: 100vh;
+    width: 100%;
+    height: 100%;
     position: fixed;
     display: none;
     flex-direction: column;
@@ -66,8 +66,8 @@ h1,h3,p{
 }
 
 .errorField{
-    width: 70vw;
-    border-radius: 5vmin;
+    border-radius: 30px;
+    padding: 20px;
     background-color: var(--red);
     color: var(--white);
     display: flex;
@@ -77,79 +77,73 @@ h1,h3,p{
     opacity: 1;
 }
 
+.icon-tabler-alert-triangle{
+    height: 60px;
+}
+
 /* Settings */
 .settingsPanelContainer{
     z-index: 100;
     position: fixed;
-    width: 100vw;
-    height: 100vh;
+    width: 100%;
+    height: 100%;
     justify-content: center;
     align-items: center;
     background-color: rgba(70%, 70%, 70%, .5);
     display: none;
 }
 .settingsPanel{
-    height: 90vh;
-    width: 90vw;
-    border-radius: 10vmin;
+    max-height: 90%;
+    border-radius: 30px;
     background-color: var(--white);
     border: 1px solid var(--gray);
-    display: flex;
-    flex-direction: column;
-    justify-content: space-evenly;
-    align-items: center;
+    text-align: center;
+    overflow: auto;
 }
 h2{
-    font-size: 5vmin;
-    margin: 2vmin 0;
+    font-size: 40px;
+    margin: 5px 0;
 }
 .formGroup{
-    height: 10vh;
+    /* height: 10vh; */
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
+    margin: 40px;
 }
 .roundField{
     max-width: 90%;
-    width: 50vmin;
+    width: 500px;
     border-radius: 300px;
-    height: 6vmin;
-    padding: 1vmin;
-    font-size: 3vmin;
+    height: 50px;
+    padding: 5px;
+    font-size: 20px;
     text-align: center;
 }
 label{
-    font-size: 2vmin;
+    font-size:20px;
     margin-bottom: 5px;
 }
 input{
     border: 1px solid var(--gray);
 }
 button{
-    background-color: var(--blue);
     border: none;
     color: var(--white);
     cursor: pointer;
 }
-.closeButton{
-    width: 40px;
-    height: 40px;
-    stroke: var(--gray);
-    cursor: pointer;
-    float: right;
-    padding: 5px;
-    border: 1px solid var(--gray);
-    border-radius: 300px;
-    position: absolute;
-    right: 10%;
-    top: 10%;
+button.saveButton{
+    background-color: var(--blue);
+}
+button.cancelButton{
+    background-color: var(--red);
 }
 /* Settings checkbox */
 .checkBox {
     position: relative;
-    width: 5vmin;
-    height: 5vmin;
+    width: 50px;
+    height: 50px;
     color: var(--black);
     border: 1px solid var(--gray);
     border-radius: 300px;
@@ -166,11 +160,11 @@ button{
       position: absolute;
       content: '';
       display: block;
-      width: 1vmin;
-      height: 3vmin;
+      width: 7px;
+      height: 20px;
       border-style: solid;
       border-color: var(--white);
-      border-width: 0 2px 2px 0;
+      border-width: 0 4px 4px 0;
       transform: rotate(45deg);
       opacity: 0;
 }
@@ -198,26 +192,26 @@ button{
 }
 
 .titleBarTextField{
-    display: flex;
-    flex-direction: row;
-    justify-content: space-around;
-    align-items: center;
-}
-
-#titleTemp{
-    font-size: 38px;
-    margin: 0 20px;
+    width: 40%;
+    margin: 0 2%;
+    max-height: 90%;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
 }
 
 #mainTitle{
-    max-width: 40vw;
-    margin-left: 10px;
-    text-overflow: ellipsis;
     overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+#titleTemp{
+    margin: 0 20px;
 }
 
 .titleBarImageField{
-    width: 30%;
+    width: 24%;
     height: 100%;
     display: flex;
     align-items: center;
@@ -251,6 +245,8 @@ button{
 /* One record / data */
 .field{
     width: 90%;
+    height: fit-content;
+    max-height: 100px;
     border-radius: 20px;
     background-color: var(--white);
     padding: 10px;
@@ -262,15 +258,19 @@ button{
 }
 
 .fieldElement{
-    margin: 10px;
+    margin: 5px;
 }
 
 .time, .line{
-    width: 250px;
+    width: 30%;
     height: 60px;
     display: flex;
     flex-direction: row;
     align-items: center;
+}
+
+.line{
+    min-width: 200px;
 }
 
 .time{
@@ -292,6 +292,17 @@ button{
     justify-content: center;
     align-items: center;
     font-weight: bold;
+}
+
+.destination{
+    max-width: 40%;
+}
+
+.destination > p{
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    max-width: 100%;
 }
 
 .circle{
@@ -379,8 +390,8 @@ button{
     border: 1px solid rgba( 255, 255, 255, 0.18 );
 }
 
-@media screen and (max-width: 1100px){
+/* @media screen and (max-width: 1100px){
     p{
         font-size: 2.5vw;
     }
-}
+} */

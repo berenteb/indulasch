@@ -15,7 +15,7 @@ function getData(endpoint) {
     return new Promise((resolve, reject) => {
         if (locationEnabled) {
             navigator.geolocation.getCurrentPosition(async (geodata) => {
-                if (geodata.coords.accuracy > 50) {
+                if (geodata.coords.accuracy > 100) {
                     reject("Pontatlan a helymeghatározás");
                 }
                 fetch(location.href + endpoint, { method: "POST", headers: { "Content-Type": "application/json; charset=utf-8" }, body: JSON.stringify({ "lat": geodata.coords.latitude.toString(), "lon": geodata.coords.longitude.toString(), "radius": radius }) }).then(result => {
