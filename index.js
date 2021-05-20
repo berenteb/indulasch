@@ -145,15 +145,15 @@ app.post("/htmldata", (req, res) => {
             try {
                 html = ejs.render(fs.readFileSync(__dirname + "/views/field.ejs", "utf-8"), result, { views: ["./views"] });
             } catch (err) {
-                reject("Mezőleképezési hiba");
+                throw "Mezőleképezési hiba";
             }
             res.send(html);
         }).catch(err => {
             console.log(err.red);
-            res.send({ error: err });
+            res.send("Hiba történt, kérlek jelezd a fejlesztőknek!");
         })
     } else {
-        res.send({ error: "Rossz lekérdezés" })
+        res.send("Rossz lekérdezés")
     }
 });
 /**
@@ -165,10 +165,10 @@ app.post("/htmldata", (req, res) => {
             res.send(result.areaName);
         }).catch(err => {
             console.log(err.red);
-            res.send({ error: err });
+            res.send("Hibás hely");
         })
     } else {
-        res.send({ error: "Rossz lekérdezés" })
+        res.send("Hibás hely")
     }
 });
 app.get("/weather", (req, res) => {
