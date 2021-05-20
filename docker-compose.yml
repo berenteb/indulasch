@@ -1,0 +1,8 @@
+version: "3.3"
+services:
+  node:
+    build: .
+    command: node index.js
+    restart: always
+    ports:
+     - 3333:3000
