@@ -155,15 +155,15 @@ function disableLocationInput(bool) {
 /**
  * Opens or hides settings
  */
-function toggleSettings() {
+function openSettings() {
     let node = document.getElementById("settingsPanelContainer");
-    if (settingsOpen) {
-        settingsOpen = false;
-        node.style.display = "none";
-    } else {
-        settingsOpen = true;
-        node.style.display = "flex";
-    }
+    settingsOpen = true;
+    node.style.display = "flex";
+}
+function closeSettings() {
+    let node = document.getElementById("settingsPanelContainer");
+    settingsOpen = false;
+    node.style.display = "none";
 }
 /**
  * Is called when the user clicks the locationEnable checkbox.
@@ -252,5 +252,11 @@ window.onload = function () {
     updateAll();
     setInterval(createFields, 1000 * 10);       //Fetch bkk info every 10s
     setInterval(fetchWeather, 1000 * 60 * 60);  //Fetch weather every hour
-    setInterval(updateArea, 1000 * 60);  //Fetch area name every minute
+    setInterval(updateArea, 1000 * 60);  //Fetch area name every minute
+    document.getElementById("settingsPanelContainer").addEventListener("mouseup", (e) => {
+        if (e.target === document.getElementById("settingsPanelContainer")) {
+            restoreData();
+            closeSettings();
+        }
+    })
 }
