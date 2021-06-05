@@ -233,6 +233,15 @@ button.cancelButton{
     width: 100%;
     overflow: auto;
     display: block;
+    text-align: center;
+}
+
+.content > *{
+    margin: 20px auto;
+}
+
+.content > *:first-child{
+    margin-top: 100px;
 }
 
 /* One record / data */
@@ -244,11 +253,9 @@ button.cancelButton{
     display: grid;
     grid-template-columns: 250px calc(100% - 250px - 200px - 10px) 200px;
     grid-gap: 5px;
-    margin: 20px auto;
 }
 
 .field:first-child{
-    margin-top: 100px;
 }
 
 .fieldElement{
@@ -380,8 +387,4 @@ button.cancelButton{
     backdrop-filter: blur( 15px );
     -webkit-backdrop-filter: blur( 15px );
     border: 1px solid rgba( 255, 255, 255, 0.18 );
-}
-
-.weatherEnabled .field:first-child{
-    margin-top: 110px;
 }

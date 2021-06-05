@@ -150,10 +150,10 @@ app.post("/htmldata", (req, res) => {
             res.send(html);
         }).catch(err => {
             console.log(err.red);
-            res.send("Hiba történt, kérlek jelezd a fejlesztőknek!");
+            res.send("<h2><i>Hiba történt, kérlek jelezd a fejlesztőknek!</i></h2>");
         })
     } else {
-        res.send("Rossz lekérdezés")
+        res.send("<h2><i>Rossz lekérdezés</i></h2>")
     }
 });
 /**
