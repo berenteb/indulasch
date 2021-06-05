@@ -3,7 +3,6 @@
 :root{
     --app-color: beige;
     --weather-image: url("https://images.unsplash.com/photo-1534629938736-b1b076531d3b?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=1567&q=80");
-
     --white: white;
     --glass-white: rgba( 255, 255, 255, 0.50 );
     --glass-dark: rgba( 50, 50, 50, 0.50 );
@@ -13,7 +12,6 @@
     --light-green: rgb(0, 170, 0);
     --red: #E41F18;
     --blue: #009FE3;
-
     --dark-gray: rgb(40, 40, 40);
 }
 
@@ -325,6 +323,7 @@ button.cancelButton{
 
 .icon-tabler-alert-circle{
     max-height: 100%;
+    height: max-content;
 }
 
 @media (prefers-color-scheme: dark) {
