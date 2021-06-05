@@ -48,12 +48,12 @@
           <input class="roundField" id="areaInput" name="area" type="text" />
         </div>
         <div class="formGroup">
-          <button class="saveButton roundField animation1" onclick="saveData(); toggleSettings()">
+          <button class="saveButton roundField animation1" onclick="saveData(); closeSettings()">
             Mentés
           </button>
         </div>
         <div class="formGroup">
-          <button class="cancelButton roundField animation1" onclick="toggleSettings()">
+          <button class="cancelButton roundField animation1" onclick="restoreData(); closeSettings()">
             Mégse
           </button>
         </div>
@@ -94,7 +94,7 @@
       </div>
       <div class="titleBarImageField settingsIconField">
         <h1 id="titleTemp"></h1>
-        <svg onclick="toggleSettings()" xmlns="http://www.w3.org/2000/svg"
+        <svg onclick="openSettings()" xmlns="http://www.w3.org/2000/svg"
           class="titleBarImage icon icon-tabler icon-tabler-settings animation1" viewBox="0 0 24 24" stroke-width="1.5"
           stroke="#000000" fill="none" stroke-linecap="round" stroke-linejoin="round">
           <path stroke="none" d="M0 0h24v24H0z" fill="none" />
