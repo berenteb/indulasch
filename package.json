@@ -1,7 +1,7 @@
 {
-  "name": "bkk-departure-display",
+  "name": "indulasch",
   "version": "1.9.1",
-  "description": "",
+  "description": "A responsive, minimalist and clean app to display nearby bus, tram, subway etc. departures.",
   "main": "index.js",
   "type": "commonjs",
   "scripts": {
