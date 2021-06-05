@@ -33,7 +33,6 @@ h1,h3,p{
     width: 100%;
     height: 100%;
     background-color: var(--app-color);
-    position: absolute;
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
@@ -179,23 +178,18 @@ button.cancelButton{
 
 .titleBar{
     z-index: 50;
-    width: calc(100% - 2*20px);
-    height: 5%;
-    min-height: 60px;
-    padding: 20px;
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    justify-content: space-between;
+    width: 100%;
+    height: 100px;
+    /* padding: 10px; */
+    display: grid;
+    grid-template-columns: 5% 250px calc(100% - 450px - 20px - 10%) 200px 5%;
+    grid-gap: 10px;
 }
 
-.titleBarTextField{
-    width: 40%;
-    margin: 0 2%;
+.areaField{
+    justify-content: center;
+    grid-column: 3;
     max-height: 90%;
-    overflow: hidden;
-    white-space: nowrap;
-    text-overflow: ellipsis;
 }
 
 #mainTitle{
@@ -204,12 +198,7 @@ button.cancelButton{
     white-space: nowrap;
 }
 
-#titleTemp{
-    margin: 0 20px;
-}
-
-.titleBarImageField{
-    width: 24%;
+.titleBarField{
     height: 100%;
     display: flex;
     align-items: center;
@@ -217,66 +206,63 @@ button.cancelButton{
 }
 
 .titleBarImage{
-    height: 50px;
-    max-height: 100%;
+    height: 60px;
     max-width: 100%;
+    max-height: 100%;
     cursor: pointer;
 }
 
 .logoField{
+    grid-column: 2;
     justify-content: flex-start;
 }
 
 .settingsIconField{
-    justify-content: flex-end;
+    grid-column: 4;
+    justify-content: space-evenly;
 }
 /* Main */
 .content{
-    height: 95%;
+    height: calc(100% - 60px);
     width: 100%;
-    overflow: scroll;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: flex-start;
+    overflow: auto;
+    display: block;
 }
+
 /* One record / data */
 .field{
     width: 90%;
-    height: fit-content;
-    max-height: 100px;
     border-radius: 20px;
     background-color: var(--white);
     padding: 10px;
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    align-items: center;
-    margin: 10px 0;
+    display: grid;
+    grid-template-columns: 250px calc(100% - 250px - 200px - 10px) 200px;
+    grid-gap: 5px;
+    margin: 20px auto;
+}
+
+.field:first-child{
+    margin-top: 0;
 }
 
 .fieldElement{
-    margin: 5px;
+    height: 60px;
 }
 
-.time, .line{
-    width: 30%;
-    height: 60px;
+.fieldElement, .lineNumber{
     display: flex;
     flex-direction: row;
     align-items: center;
 }
 
 .line{
-    min-width: 200px;
+    justify-content: flex-start;
+    grid-column: 1;
 }
 
 .time{
     justify-content: flex-end;
-}
-
-.line{
-    justify-content: flex-start;
+    grid-column: 3;
 }
 
 .lineElement{
@@ -285,15 +271,13 @@ button.cancelButton{
 }
 
 .lineNumber{
-    display: flex;
-    flex-direction: column;
     justify-content: center;
-    align-items: center;
     font-weight: bold;
 }
 
 .destination{
-    max-width: 40%;
+    grid-column:2;
+    justify-content: center;
 }
 
 .destination > p{
@@ -305,11 +289,13 @@ button.cancelButton{
 
 .circle{
     border-radius: 300px;
+    height: 60px;
     width: 60px;
 }
 
 .box{
     border-radius: 10px;
+    height: 60px;
     width: 100px;
 }
 
@@ -322,8 +308,7 @@ button.cancelButton{
 }
 
 .icon-tabler-alert-circle{
-    max-height: 100%;
-    height: max-content;
+    height: 60px;
 }
 
 @media (prefers-color-scheme: dark) {
@@ -388,9 +373,3 @@ button.cancelButton{
     -webkit-backdrop-filter: blur( 15px );
     border: 1px solid rgba( 255, 255, 255, 0.18 );
 }
-
-/* @media screen and (max-width: 1100px){
-    p{
-        font-size: 2.5vw;
-    }
-} */
