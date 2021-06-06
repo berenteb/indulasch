@@ -255,9 +255,6 @@ button.cancelButton{
     grid-gap: 5px;
 }
 
-.field:first-child{
-}
-
 .fieldElement{
     height: 60px;
 }
