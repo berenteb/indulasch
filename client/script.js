@@ -1,11 +1,11 @@
-var lat, lon, radius, area, locationEnabled, weatherBackgroundEnabled;
-var settingsOpen = false;
+let lat, lon, radius, area, locationEnabled, weatherBackgroundEnabled;
+let settingsOpen = false;
 // SCH
-// const default_lat = "47.473443";
-// const default_lon = "19.052844";
+const default_lat = "47.473443";
+const default_lon = "19.052844";
 //Széll Kálmán tér
-const default_lat = "47.506854";
-const default_lon = "19.024788";
+// const default_lat = "47.506854";
+// const default_lon = "19.024788";
 const default_radius = "150";
 /**
  * Gets data from the server.
@@ -28,6 +28,7 @@ function getData(endpoint) {
                 locationEnabled = false;
                 document.getElementById("locationCheckbox").checked = locationEnabled;
                 localStorage.setItem("locationEnabled", locationEnabled);
+                disableLocationInput(locationEnabled);
                 reject("Helymeghatározási hiba");
             });
         } else {
@@ -44,14 +45,14 @@ function getData(endpoint) {
  * Main functionality. Makes a request and refreshes the data fields with the new HTML.
  */
 async function createFields() {
-    var content = document.getElementById("content");
+    let content = document.getElementById("content");
     getData("htmldata").then(data => {
         if (data.error) {
             displayError(data.error);
             return;
         }
         dismissError();
-        content.innerHTML = data;
+        content.innerHTML = data.toString();
     }).catch(err => {
         displayError(err);
     })
@@ -63,8 +64,8 @@ async function updateArea() {
     if (!locationEnabled && area !== "") {
         document.getElementById("mainTitle").innerHTML = area;
     } else {
-        var mainTitle = document.getElementById("mainTitle");
-    getData("area").then(data => {
+        const mainTitle = document.getElementById("mainTitle");
+        getData("area").then(data => {
         if (data.error) {
             displayError(data.error);
             return;
@@ -100,14 +101,13 @@ function saveData() {
     radius = document.getElementById("radiusInput").value;
     area = document.getElementById("areaInput").value;
     locationEnabled = document.getElementById("locationCheckbox").checked;
-    weatherBackgroundEnabled = document.getElementById("weatherBackgroundCheckbox").checked;
-    if (lat == "" || lon == "") {
+    if (lat === "" || lon === "") {
         lat = default_lat;
         lon = default_lon;
         document.getElementById("latInput").value = lat;
         document.getElementById("lonInput").value = lon;
     }
-    if (radius == "") {
+    if (radius === "") {
         radius = default_radius
         document.getElementById("radiusInput").value = radius;
     }
@@ -169,8 +169,8 @@ function closeSettings() {
  * Is called when the user clicks the locationEnable checkbox.
  */
 function handleLocationEnableChange() {
-    var locationCheckbox = document.getElementById("locationCheckbox");
-    var value = locationCheckbox.checked;
+    const locationCheckbox = document.getElementById("locationCheckbox");
+    const value = locationCheckbox.checked;
     if (value) {
         if (navigator.geolocation) {
             navigator.geolocation.getCurrentPosition(console.log, console.log)
@@ -179,6 +179,7 @@ function handleLocationEnableChange() {
             alert("Helymeghatározás nem lehetséges")
             locationEnabled = false;
             locationCheckbox.checked = false;
+            disableLocationInput(false);
         }
     } else {
         disableLocationInput(false);
@@ -195,7 +196,7 @@ function fetchWeather(){
         "lon" : lon,
     }).toString();
     (new Promise((resolve, reject) => {
-        fetch(url, { method: "GET", headers: { "Content-Type": "application/json; charset='utf-8'" }}).then(result => {
+        fetch(url.toString(), { method: "GET", headers: { "Content-Type": "application/json; charset='utf-8'" }}).then(result => {
             resolve(result.json());
         }).catch(err => {
             reject(err);
@@ -237,8 +238,10 @@ function renderWeather(weatherId){
 }
 
 function handleWeatherBackgroundEnable() {
-    var weatherBackgroundCheckbox = document.getElementById("weatherBackgroundCheckbox");
+    let weatherBackgroundCheckbox = document.getElementById("weatherBackgroundCheckbox");
     document.body.className = weatherBackgroundCheckbox.checked ? "weatherEnabled" : "";
+    localStorage.setItem("weatherBackgroundEnabled", weatherBackgroundCheckbox.checked);
+    fetchWeather();
 }
 
 function updateAll() {
@@ -250,8 +253,8 @@ function updateAll() {
 window.onload = function () {
     restoreData();
     updateAll();
-    setInterval(createFields, 1000 * 10);       //Fetch bkk info every 10s
-    setInterval(fetchWeather, 1000 * 60 * 60);  //Fetch weather every hour
+    setInterval(createFields, 1000 * 10);       //Fetch bkk info every 10s
+    setInterval(fetchWeather, 1000 * 60 * 60);  //Fetch weather every hour
     setInterval(updateArea, 1000 * 60);  //Fetch area name every minute
     document.getElementById("settingsPanelContainer").addEventListener("mouseup", (e) => {
         if (e.target === document.getElementById("settingsPanelContainer")) {
