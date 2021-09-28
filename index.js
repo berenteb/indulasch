@@ -44,13 +44,13 @@ function getUrl(lat, lon, radius) {
 function getData(lat, lon, radius) {
     return new Promise((resolve, reject) => {
         https.get(getUrl(lat, lon, radius), { headers: { "Content-Type": "application/json; charset='utf-8'" } }, (res) => {
-            var str = '';
+            let str = '';
             res.on('data', (chunk) => {
                 str += chunk;
             })
             res.on('end', () => {
-                var parsed = JSON.parse(str);
-                var parsedData = parseData(parsed.data)
+                let parsed = JSON.parse(str);
+                let parsedData = parseData(parsed.data)
                 if (parsedData !== false) {
                     parsedData.areaName = getAreaName(parsed);
                     // DEBUG Area
@@ -86,7 +86,7 @@ function getAreaName(data) {
  * @returns The object with the neccessary data for the front-end, returns false if it fails.
  */
 function parseData(data) {
-    var parsedData = {
+    let parsedData = {
         departures: []
     };
     try {
