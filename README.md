@@ -1,4 +1,4 @@
-# InduláSch for BKK FUTÁR
+# InduláSch for BKK FUTÁR (DEPRECATED, 2.0 is on the way)
 ![Version](https://img.shields.io/github/package-json/v/berenteb/bkk-nearby-departures?style=flat-square) ![Issues](https://img.shields.io/github/issues/berenteb/bkk-nearby-departures?style=flat-square)  
 A responsive, minimalist and clean app to display nearby bus, tram, subway etc. departures. Made for Budapest.
 Try it here: [InduláSch](https://indula.sch.bme.hu)
